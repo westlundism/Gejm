@@ -52,3 +52,27 @@ void Player::draw(sf::RenderWindow & window)
 {
     window.draw(sprite);
 }
+
+void Player::hitObject(sf::Sprite & object)
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
+            position.y -= 0.05f;
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
+            position.x -= 0.05f;
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
+            position.y += 0.05f;
+    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
+            position.x += 0.05f;
+}
+
+sf::FloatRect Player::getSize()
+{
+    return sprite.getGlobalBounds();
+}

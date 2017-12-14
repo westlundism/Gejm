@@ -16,8 +16,6 @@ public:
     virtual void draw(sf::RenderWindow &) = 0;
 protected:
     Game & game;
-    sf::Sprite background_sprite{};
-    sf::Sprite house_sprite{};
     sf::Font font{};
 };
 
@@ -30,6 +28,7 @@ public:
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
 private:
+    sf::Sprite background_sprite{};
     sf::Texture background{};
     sf::Text title{};
 };
@@ -45,6 +44,8 @@ public:
 private:
     void drawWorld(sf::RenderWindow &);
     std::unique_ptr<Player> player{};
+    sf::Sprite background_sprite{};
+    sf::Sprite house_sprite{};
     sf::Texture world{};
 };
 

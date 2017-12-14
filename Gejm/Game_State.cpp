@@ -60,6 +60,9 @@ void In_Game::handleInput(sf::Event & event)
 void In_Game::update(sf::Time & delta)
 {
     player->update(delta);
+    
+    if(player->getSize().intersects(house_sprite.getGlobalBounds()))
+        player->hitObject(house_sprite);
 }
 
 void In_Game::draw(sf::RenderWindow & window)
@@ -81,7 +84,7 @@ void In_Game::drawWorld(sf::RenderWindow & window)
             window.draw(background_sprite);
         }
     }
-    
+     
     // House
     house_sprite.setTextureRect(sf::IntRect(96, 0, 74, 80));
     house_sprite.setPosition(320, 320);

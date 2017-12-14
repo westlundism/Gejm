@@ -24,6 +24,8 @@ public:
     void handleInput(sf::Event &);
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
+    void hitObject(sf::Sprite &);
+    sf::FloatRect getSize();
 private:
     sf::Texture player{};
     sf::Vector2f position{};

@@ -14,6 +14,9 @@ void Game::run()
 {
     sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Gejm");
     
+    window.setVerticalSyncEnabled(true);
+    window.setKeyRepeatEnabled(false);
+    
     sf::Clock clock;
     auto delta = clock.restart();
     
