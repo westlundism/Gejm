@@ -1,25 +1,19 @@
 #include <SFML/Graphics.hpp>
-#include "ResourcePath.hpp"
+#include "Game.hpp"
+#include <iostream>
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML window");
-
-    while (window.isOpen())
+    Game game;
+    
+    try
     {
-        sf::Event event;
-        
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        //update
-        //draw
-        window.display();
+        game.run();
     }
-
+    catch (...)
+    {
+        std::cout << "Unknown error!" << std::endl;
+    }
+    
     return 0;
 }
