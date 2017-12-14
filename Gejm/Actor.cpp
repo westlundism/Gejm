@@ -55,21 +55,21 @@ void Player::draw(sf::RenderWindow & window)
 
 void Player::hitObject(sf::Sprite & object)
 {
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
-            position.y -= 0.05f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        position.y += 5.00f;
     
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
-            position.x -= 0.05f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        position.x += 5.00f;
     
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
-            position.y += 0.05f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        position.y -= 5.00f;
     
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        if (!sprite.getGlobalBounds().intersects(object.getGlobalBounds()))
-            position.x += 0.05f;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        position.x -= 5.00f;
 }
 
 sf::FloatRect Player::getSize()
