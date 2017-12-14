@@ -11,6 +11,7 @@ Game::Game()
 void Game::run()
 {
     sf::RenderWindow window(sf::VideoMode(1600, 900), "Gejm");
+    
     sf::Clock clock;
     auto delta = clock.restart();
     
@@ -32,9 +33,9 @@ void Game::run()
         }
         
         window.clear();
-        states.at(active_state) -> update(delta);
+        states.at(active_state)->update(delta);
         delta = clock.restart();
-        states.at(active_state) -> draw(window);
+        states.at(active_state)->draw(window);
         window.display();
     }
 }

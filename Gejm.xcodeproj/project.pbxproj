@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		1165ECE41FE2E0FA00B8A66B /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECE31FE2E0FA00B8A66B /* ResourcePath.mm */; };
 		1165ECE71FE2E0FA00B8A66B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECE61FE2E0FA00B8A66B /* main.cpp */; };
-		1165ECFB1FE2E79B00B8A66B /* background0.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ECFA1FE2E79A00B8A66B /* background0.png */; };
 		1165ECFE1FE2E82500B8A66B /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECFC1FE2E82500B8A66B /* Game.cpp */; };
 		1165ED011FE2E92D00B8A66B /* Game_State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECFF1FE2E92D00B8A66B /* Game_State.cpp */; };
+		1165ED041FE2F67900B8A66B /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ED021FE2F67900B8A66B /* Actor.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,11 +20,12 @@
 		1165ECE31FE2E0FA00B8A66B /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
 		1165ECE51FE2E0FA00B8A66B /* ResourcePath.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ResourcePath.hpp; sourceTree = "<group>"; };
 		1165ECE61FE2E0FA00B8A66B /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		1165ECFA1FE2E79A00B8A66B /* background0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background0.png; sourceTree = "<group>"; };
 		1165ECFC1FE2E82500B8A66B /* Game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game.cpp; sourceTree = "<group>"; };
 		1165ECFD1FE2E82500B8A66B /* Game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game.hpp; sourceTree = "<group>"; };
 		1165ECFF1FE2E92D00B8A66B /* Game_State.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Game_State.cpp; sourceTree = "<group>"; };
 		1165ED001FE2E92D00B8A66B /* Game_State.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game_State.hpp; sourceTree = "<group>"; };
+		1165ED021FE2F67900B8A66B /* Actor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Actor.cpp; sourceTree = "<group>"; };
+		1165ED031FE2F67900B8A66B /* Actor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Actor.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +65,8 @@
 				1165ECFD1FE2E82500B8A66B /* Game.hpp */,
 				1165ECFF1FE2E92D00B8A66B /* Game_State.cpp */,
 				1165ED001FE2E92D00B8A66B /* Game_State.hpp */,
+				1165ED021FE2F67900B8A66B /* Actor.cpp */,
+				1165ED031FE2F67900B8A66B /* Actor.hpp */,
 				1165ECE81FE2E0FA00B8A66B /* Resources */,
 				1165ECE11FE2E0FA00B8A66B /* Supporting Files */,
 			);
@@ -91,7 +94,6 @@
 		1165ECF61FE2E63600B8A66B /* img */ = {
 			isa = PBXGroup;
 			children = (
-				1165ECFA1FE2E79A00B8A66B /* background0.png */,
 			);
 			path = img;
 			sourceTree = "<group>";
@@ -168,7 +170,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1165ECFB1FE2E79B00B8A66B /* background0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +200,7 @@
 				1165ED011FE2E92D00B8A66B /* Game_State.cpp in Sources */,
 				1165ECE71FE2E0FA00B8A66B /* main.cpp in Sources */,
 				1165ECE41FE2E0FA00B8A66B /* ResourcePath.mm in Sources */,
+				1165ED041FE2F67900B8A66B /* Actor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
