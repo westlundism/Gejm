@@ -5,6 +5,12 @@
 #include "Game_State.hpp"
 #include <vector>
 
+namespace constants
+{
+    const int window_width = 1280;
+    const int window_height = 960;
+}
+
 class Game_State;
 
 class Game
@@ -17,7 +23,7 @@ public:
     void changeState(int);
 private:
     std::vector<std::unique_ptr<Game_State>> states{};
-    int active_state{};
+    int active_state{1};
 };
 
 #endif

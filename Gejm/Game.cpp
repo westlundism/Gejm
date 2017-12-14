@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 using namespace std;
+using namespace constants;
 
 Game::Game()
 {
@@ -11,7 +12,7 @@ Game::Game()
 
 void Game::run()
 {
-    sf::RenderWindow window(sf::VideoMode(1600, 900), "Gejm");
+    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Gejm");
     
     sf::Clock clock;
     auto delta = clock.restart();

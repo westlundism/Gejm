@@ -14,6 +14,15 @@
 		1165ED041FE2F67900B8A66B /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ED021FE2F67900B8A66B /* Actor.cpp */; };
 		1165ED081FE2FB3C00B8A66B /* background0.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED071FE2FB3C00B8A66B /* background0.png */; };
 		1165ED0A1FE2FC3B00B8A66B /* Powerful.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED091FE2FC3B00B8A66B /* Powerful.ttf */; };
+		1165ED131FE30DEC00B8A66B /* cave.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED0B1FE30DEC00B8A66B /* cave.png */; };
+		1165ED141FE30DEC00B8A66B /* objects.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED0C1FE30DEC00B8A66B /* objects.png */; };
+		1165ED151FE30DEC00B8A66B /* NPC_test.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED0D1FE30DEC00B8A66B /* NPC_test.png */; };
+		1165ED161FE30DEC00B8A66B /* Overworld.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED0E1FE30DEC00B8A66B /* Overworld.png */; };
+		1165ED171FE30DEC00B8A66B /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED0F1FE30DEC00B8A66B /* font.png */; };
+		1165ED181FE30DEC00B8A66B /* character.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED101FE30DEC00B8A66B /* character.png */; };
+		1165ED191FE30DEC00B8A66B /* Inner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED111FE30DEC00B8A66B /* Inner.png */; };
+		1165ED1A1FE30DEC00B8A66B /* log.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED121FE30DEC00B8A66B /* log.png */; };
+		1165ED1D1FE3133400B8A66B /* Controllers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ED1B1FE3133400B8A66B /* Controllers.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +39,16 @@
 		1165ED031FE2F67900B8A66B /* Actor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Actor.hpp; sourceTree = "<group>"; };
 		1165ED071FE2FB3C00B8A66B /* background0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background0.png; sourceTree = "<group>"; };
 		1165ED091FE2FC3B00B8A66B /* Powerful.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Powerful.ttf; sourceTree = "<group>"; };
+		1165ED0B1FE30DEC00B8A66B /* cave.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cave.png; sourceTree = "<group>"; };
+		1165ED0C1FE30DEC00B8A66B /* objects.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = objects.png; sourceTree = "<group>"; };
+		1165ED0D1FE30DEC00B8A66B /* NPC_test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NPC_test.png; sourceTree = "<group>"; };
+		1165ED0E1FE30DEC00B8A66B /* Overworld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overworld.png; sourceTree = "<group>"; };
+		1165ED0F1FE30DEC00B8A66B /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font.png; sourceTree = "<group>"; };
+		1165ED101FE30DEC00B8A66B /* character.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = character.png; sourceTree = "<group>"; };
+		1165ED111FE30DEC00B8A66B /* Inner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Inner.png; sourceTree = "<group>"; };
+		1165ED121FE30DEC00B8A66B /* log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log.png; sourceTree = "<group>"; };
+		1165ED1B1FE3133400B8A66B /* Controllers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Controllers.cpp; sourceTree = "<group>"; };
+		1165ED1C1FE3133400B8A66B /* Controllers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Controllers.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +90,8 @@
 				1165ED001FE2E92D00B8A66B /* Game_State.hpp */,
 				1165ED021FE2F67900B8A66B /* Actor.cpp */,
 				1165ED031FE2F67900B8A66B /* Actor.hpp */,
+				1165ED1B1FE3133400B8A66B /* Controllers.cpp */,
+				1165ED1C1FE3133400B8A66B /* Controllers.hpp */,
 				1165ECE81FE2E0FA00B8A66B /* Resources */,
 				1165ECE11FE2E0FA00B8A66B /* Supporting Files */,
 			);
@@ -98,6 +119,14 @@
 		1165ECF61FE2E63600B8A66B /* img */ = {
 			isa = PBXGroup;
 			children = (
+				1165ED0B1FE30DEC00B8A66B /* cave.png */,
+				1165ED101FE30DEC00B8A66B /* character.png */,
+				1165ED0F1FE30DEC00B8A66B /* font.png */,
+				1165ED111FE30DEC00B8A66B /* Inner.png */,
+				1165ED121FE30DEC00B8A66B /* log.png */,
+				1165ED0D1FE30DEC00B8A66B /* NPC_test.png */,
+				1165ED0C1FE30DEC00B8A66B /* objects.png */,
+				1165ED0E1FE30DEC00B8A66B /* Overworld.png */,
 				1165ED071FE2FB3C00B8A66B /* background0.png */,
 			);
 			path = img;
@@ -176,8 +205,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1165ED141FE30DEC00B8A66B /* objects.png in Resources */,
+				1165ED151FE30DEC00B8A66B /* NPC_test.png in Resources */,
 				1165ED0A1FE2FC3B00B8A66B /* Powerful.ttf in Resources */,
 				1165ED081FE2FB3C00B8A66B /* background0.png in Resources */,
+				1165ED1A1FE30DEC00B8A66B /* log.png in Resources */,
+				1165ED161FE30DEC00B8A66B /* Overworld.png in Resources */,
+				1165ED181FE30DEC00B8A66B /* character.png in Resources */,
+				1165ED191FE30DEC00B8A66B /* Inner.png in Resources */,
+				1165ED131FE30DEC00B8A66B /* cave.png in Resources */,
+				1165ED171FE30DEC00B8A66B /* font.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +244,7 @@
 				1165ECFE1FE2E82500B8A66B /* Game.cpp in Sources */,
 				1165ED011FE2E92D00B8A66B /* Game_State.cpp in Sources */,
 				1165ECE71FE2E0FA00B8A66B /* main.cpp in Sources */,
+				1165ED1D1FE3133400B8A66B /* Controllers.cpp in Sources */,
 				1165ECE41FE2E0FA00B8A66B /* ResourcePath.mm in Sources */,
 				1165ED041FE2F67900B8A66B /* Actor.cpp in Sources */,
 			);
@@ -308,6 +346,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = "Gejm/Gejm-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -319,6 +358,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INFOPLIST_FILE = "Gejm/Gejm-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

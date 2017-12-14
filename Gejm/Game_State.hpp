@@ -42,7 +42,9 @@ public:
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
 private:
+    void drawWorld(sf::RenderWindow &);
     std::unique_ptr<Player> player{};
+    sf::Texture world{};
 };
 
 class Pause_Menu : public Game_State
