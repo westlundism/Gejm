@@ -67,6 +67,7 @@ void In_Game::draw(sf::RenderWindow & window)
 
 void In_Game::drawWorld(sf::RenderWindow & window)
 {
+    // Grass background
     sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
     
     for(int j{}; j < window_height/32; j++)
@@ -77,6 +78,11 @@ void In_Game::drawWorld(sf::RenderWindow & window)
             window.draw(sprite);
         }
     }
+    
+    // House
+    sprite.setTextureRect(sf::IntRect(96, 0, 74, 80));
+    sprite.setPosition(320, 320);
+    window.draw(sprite);
 }
 
 Pause_Menu::Pause_Menu(Game & game) :
