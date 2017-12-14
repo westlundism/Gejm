@@ -61,7 +61,10 @@ void In_Game::update(sf::Time & delta)
 {
     player->update(delta);
     
-    if(player->getSize().intersects(house_sprite.getGlobalBounds()))
+    sf::FloatRect house_bounds = house_sprite.getGlobalBounds();
+    house_bounds.height = house_bounds.height - 40;
+    
+    if(player->getSize().intersects(house_bounds))
         player->hitObject(house_sprite);
 }
 
