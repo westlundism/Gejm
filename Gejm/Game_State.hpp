@@ -16,7 +16,8 @@ public:
     virtual void draw(sf::RenderWindow &) = 0;
 protected:
     Game & game;
-    sf::Sprite sprite{};
+    sf::Sprite background_sprite{};
+    sf::Sprite house_sprite{};
     sf::Font font{};
 };
 
