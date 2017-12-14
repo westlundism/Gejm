@@ -11,11 +11,13 @@ public:
     ~Controllers() = default;
     void handleInput(bool, sf::Keyboard::Key);
     sf::Vector2f direction();
+    bool slash() const;
 private:
-    bool left{};
-    bool right{};
-    bool up{};
-    bool down{};
+    bool left;
+    bool right;
+    bool up;
+    bool down;
+    bool space;
 };
 
 #endif /* Controllers_hpp */

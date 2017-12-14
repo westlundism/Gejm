@@ -47,8 +47,6 @@ private:
     std::unique_ptr<Player> player{};
     std::vector<sf::Sprite> sprites{};
     sf::Sprite background_sprite{};
-    sf::Sprite house_sprite{};
-    sf::Sprite grave_sprite{};
     sf::Texture world{};
 };
 

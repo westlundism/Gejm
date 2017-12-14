@@ -3,7 +3,7 @@
 #include "Controllers.hpp"
 
 Controllers::Controllers() :
-left(false), right(false), up(false), down(false) {}
+left(false), right(false), up(false), down(false), space(false) {}
 
 void Controllers::handleInput(bool pressed, sf::Keyboard::Key key)
 {
@@ -24,6 +24,9 @@ void Controllers::handleInput(bool pressed, sf::Keyboard::Key key)
         case sf::Keyboard::Down:
         case sf::Keyboard::S:
             down = pressed;
+            break;
+        case sf::Keyboard::Space:
+            space = pressed;
             break;
         default:
             break;
@@ -51,4 +54,9 @@ sf::Vector2f Controllers::direction()
         direction = direction * (1.0f/length);
     
     return direction;
+}
+
+bool Controllers::slash() const
+{
+    return space;
 }
