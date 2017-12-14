@@ -32,7 +32,8 @@ private:
     sf::Vector2f position{};
     std::unique_ptr<Controllers> controllers{};
     bool slash{false};
-    sf::Clock clock{};
+    sf::Clock slash_clock{};
+    sf::Clock moving_clock{};
     sf::IntRect temp{};
 };
 
