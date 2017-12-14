@@ -6,6 +6,7 @@ Game::Game()
 {
     states.push_back(make_unique<Main_Menu>(*this));
     states.push_back(make_unique<In_Game>(*this));
+    states.push_back(make_unique<Pause_Menu>(*this));
 }
 
 void Game::run()
@@ -38,4 +39,15 @@ void Game::run()
         states.at(active_state)->draw(window);
         window.display();
     }
+}
+
+void Game::restart()
+{
+    changeState(0);
+    states.at(1) = make_unique<In_Game>(*this);
+}
+
+void Game::changeState(int new_state)
+{
+    active_state = new_state;
 }

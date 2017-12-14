@@ -16,6 +16,8 @@ public:
     virtual void draw(sf::RenderWindow &) = 0;
 protected:
     Game & game;
+    sf::Sprite sprite{};
+    sf::Font font{};
 };
 
 class Main_Menu : public Game_State
@@ -27,6 +29,8 @@ public:
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
 private:
+    sf::Texture background{};
+    sf::Text title{};
 };
 
 class In_Game : public Game_State

@@ -12,6 +12,8 @@
 		1165ECFE1FE2E82500B8A66B /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECFC1FE2E82500B8A66B /* Game.cpp */; };
 		1165ED011FE2E92D00B8A66B /* Game_State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECFF1FE2E92D00B8A66B /* Game_State.cpp */; };
 		1165ED041FE2F67900B8A66B /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ED021FE2F67900B8A66B /* Actor.cpp */; };
+		1165ED081FE2FB3C00B8A66B /* background0.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED071FE2FB3C00B8A66B /* background0.png */; };
+		1165ED0A1FE2FC3B00B8A66B /* Powerful.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED091FE2FC3B00B8A66B /* Powerful.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		1165ED001FE2E92D00B8A66B /* Game_State.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Game_State.hpp; sourceTree = "<group>"; };
 		1165ED021FE2F67900B8A66B /* Actor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Actor.cpp; sourceTree = "<group>"; };
 		1165ED031FE2F67900B8A66B /* Actor.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Actor.hpp; sourceTree = "<group>"; };
+		1165ED071FE2FB3C00B8A66B /* background0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background0.png; sourceTree = "<group>"; };
+		1165ED091FE2FC3B00B8A66B /* Powerful.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Powerful.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +98,7 @@
 		1165ECF61FE2E63600B8A66B /* img */ = {
 			isa = PBXGroup;
 			children = (
+				1165ED071FE2FB3C00B8A66B /* background0.png */,
 			);
 			path = img;
 			sourceTree = "<group>";
@@ -108,6 +113,7 @@
 		1165ECF91FE2E66600B8A66B /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				1165ED091FE2FC3B00B8A66B /* Powerful.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -170,6 +176,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1165ED0A1FE2FC3B00B8A66B /* Powerful.ttf in Resources */,
+				1165ED081FE2FB3C00B8A66B /* background0.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
