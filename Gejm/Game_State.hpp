@@ -47,10 +47,11 @@ private:
     void constructObjects();
     
     std::unique_ptr<Player> player{};
-    std::vector<sf::Sprite> sprites{};
     std::vector<std::unique_ptr<Object>> objects{};
     sf::Sprite background_sprite{};
+    sf::Sprite playerinfo_sprite{};
     sf::Texture world{};
+    sf::Texture other{};
 };
 
 class Pause_Menu : public Game_State

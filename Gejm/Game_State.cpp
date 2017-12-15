@@ -56,9 +56,16 @@ Game_State(game), player(make_unique<Player>())
 {
     if(!world.loadFromFile(resourcePath() + "Overworld.png"))
         throw invalid_argument("World texture not loaded!");
+    
+    if(!other.loadFromFile(resourcePath() + "objects.png"))
+        throw invalid_argument("World texture not loaded!");
 
     background_sprite.setTexture(world);
     background_sprite.setScale(2.0, 2.0);
+    
+    playerinfo_sprite.setTexture(other);
+    playerinfo_sprite.setScale(3.0, 3.0);
+    playerinfo_sprite.setTextureRect(sf::IntRect(0, 226, 78, 53));
 
     constructObjects();
 }
@@ -74,8 +81,10 @@ void In_Game::update(sf::Time & delta)
     
     for(auto && object : objects)
     {
+        object->update(delta);
+        
         sf::FloatRect bounds = object->getSize();
-        bounds.height = bounds.height - 45;
+        bounds.height = bounds.height - 40;
         
         if(player->getSize().intersects(bounds))
             player->handleCollision();
@@ -85,6 +94,7 @@ void In_Game::update(sf::Time & delta)
 void In_Game::draw(sf::RenderWindow & window)
 {
     drawWorld(window);
+    window.draw(playerinfo_sprite);
     player->draw(window);
 }
 
@@ -93,11 +103,11 @@ void In_Game::drawWorld(sf::RenderWindow & window)
     // Grass background
     background_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
     
-    for(int j{}; j < window_height/32; j++)
+    for(int columns{}; columns < window_height/32; columns++)
     {
-        for(int i{}; i < window_width/32; i++)
+        for(int rows{}; rows < window_width/32; rows++)
         {
-            background_sprite.setPosition(32*i, 32*j);
+            background_sprite.setPosition(32*rows, 32*columns);
             window.draw(background_sprite);
         }
     }
@@ -113,6 +123,9 @@ void In_Game::constructObjects()
 
     // Grave
     objects.push_back(make_unique<Grave>(sf::Vector2f(500, 320)));
+    
+    // Living Tree
+    objects.push_back(make_unique<Living_Tree>(sf::Vector2f(700, 520)));
 }
 
 /*___  _  _   _ ___ ___   __  __ ___ _  _ _   _
