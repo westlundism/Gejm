@@ -25,16 +25,17 @@ public:
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
     void hitObject(sf::Sprite &);
-    void handleSlashing();
     sf::FloatRect getSize();
 private:
+    void handleSlashing();
+    void animate();
     sf::Texture player{};
     sf::Vector2f position{};
     std::unique_ptr<Controllers> controllers{};
-    bool slash{false};
     sf::Clock slash_clock{};
     sf::Clock moving_clock{};
-    sf::IntRect temp{};
+    bool slash{false};
+    char movement_direction{};
 };
 
 #endif
