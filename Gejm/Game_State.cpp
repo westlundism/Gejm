@@ -104,7 +104,7 @@ void In_Game::drawWorld(sf::RenderWindow & window)
 void In_Game::constructObjects()
 {
     // House
-    sprites.at(0).setTextureRect(sf::IntRect(96, 0, 74, 80));
+    sprites.at(0).setTextureRect(sf::IntRect(99, 0, 74, 80));
     sprites.at(0).setPosition(320, 320);
     
     // Grave
