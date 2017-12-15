@@ -13,7 +13,6 @@ public:
     void handleInput(bool, sf::Keyboard::Key);
     sf::Vector2f direction();
     bool slash() const;
-    bool notMoving() const;
 private:
     bool left;
     bool right;

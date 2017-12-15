@@ -60,9 +60,3 @@ bool Controllers::slash() const
 {
     return space;
 }
-
-bool Controllers::notMoving() const
-{
-    if(!left && !right && !up && !down)
-        return true;
-}
