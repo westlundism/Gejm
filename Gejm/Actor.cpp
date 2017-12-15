@@ -55,7 +55,7 @@ void Player::draw(sf::RenderWindow & window)
     window.draw(sprite);
 }
 
-void Player::hitObject(sf::Sprite & object)
+void Player::handleCollision()
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::Up))

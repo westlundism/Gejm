@@ -10,6 +10,7 @@ public:
     Actor() = default;
     virtual ~Actor() = default;
     virtual void handleInput(sf::Event &) = 0;
+    virtual void handleCollision() = 0;
     virtual void update(sf::Time &) = 0;
     virtual void draw(sf::RenderWindow &) = 0;
 protected:
@@ -22,9 +23,9 @@ public:
     Player();
     ~Player() = default;
     void handleInput(sf::Event &);
+    void handleCollision();
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
-    void hitObject(sf::Sprite &);
     sf::FloatRect getSize();
 private:
     void handleSlashing();

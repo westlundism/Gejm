@@ -3,6 +3,7 @@
 
 #include "Game.hpp"
 #include "Actor.hpp"
+#include "Object.hpp"
 
 class Game;
 
@@ -44,8 +45,10 @@ public:
 private:
     void drawWorld(sf::RenderWindow &);
     void constructObjects();
+    
     std::unique_ptr<Player> player{};
     std::vector<sf::Sprite> sprites{};
+    std::vector<std::unique_ptr<Object>> objects{};
     sf::Sprite background_sprite{};
     sf::Texture world{};
 };

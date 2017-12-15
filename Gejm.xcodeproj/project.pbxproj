@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		114105BB1FE3FE8A00CB464C /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 114105B91FE3FE8A00CB464C /* Object.cpp */; };
 		1165ECE41FE2E0FA00B8A66B /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECE31FE2E0FA00B8A66B /* ResourcePath.mm */; };
 		1165ECE71FE2E0FA00B8A66B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECE61FE2E0FA00B8A66B /* main.cpp */; };
 		1165ECFE1FE2E82500B8A66B /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ECFC1FE2E82500B8A66B /* Game.cpp */; };
@@ -26,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		114105B91FE3FE8A00CB464C /* Object.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Object.cpp; sourceTree = "<group>"; };
+		114105BA1FE3FE8A00CB464C /* Object.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Object.hpp; sourceTree = "<group>"; };
 		1165ECDE1FE2E0FA00B8A66B /* Gejm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gejm.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1165ECE21FE2E0FA00B8A66B /* Gejm-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Gejm-Info.plist"; sourceTree = "<group>"; };
 		1165ECE31FE2E0FA00B8A66B /* ResourcePath.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ResourcePath.mm; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				1165ED031FE2F67900B8A66B /* Actor.hpp */,
 				1165ED1B1FE3133400B8A66B /* Controllers.cpp */,
 				1165ED1C1FE3133400B8A66B /* Controllers.hpp */,
+				114105B91FE3FE8A00CB464C /* Object.cpp */,
+				114105BA1FE3FE8A00CB464C /* Object.hpp */,
 				1165ECE81FE2E0FA00B8A66B /* Resources */,
 				1165ECE11FE2E0FA00B8A66B /* Supporting Files */,
 			);
@@ -245,6 +250,7 @@
 				1165ED011FE2E92D00B8A66B /* Game_State.cpp in Sources */,
 				1165ECE71FE2E0FA00B8A66B /* main.cpp in Sources */,
 				1165ED1D1FE3133400B8A66B /* Controllers.cpp in Sources */,
+				114105BB1FE3FE8A00CB464C /* Object.cpp in Sources */,
 				1165ECE41FE2E0FA00B8A66B /* ResourcePath.mm in Sources */,
 				1165ED041FE2F67900B8A66B /* Actor.cpp in Sources */,
 			);

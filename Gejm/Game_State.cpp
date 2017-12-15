@@ -47,13 +47,7 @@ Game_State(game), player(make_unique<Player>())
 
     background_sprite.setTexture(world);
     background_sprite.setScale(2.0, 2.0);
-    
-    for(int count{}; count < 2; count++)
-        sprites.push_back(sf::Sprite(world));
-    
-    for(unsigned count{}; count < sprites.size(); count++)
-        sprites.at(count).setScale(2.0, 2.0);
-    
+
     constructObjects();
 }
 
@@ -66,13 +60,13 @@ void In_Game::update(sf::Time & delta)
 {
     player->update(delta);
     
-    for(unsigned count{}; count < sprites.size(); count++)
+    for(auto && object : objects)
     {
-        sf::FloatRect bounds = sprites.at(count).getGlobalBounds();
+        sf::FloatRect bounds = object->getSize();
         bounds.height = bounds.height - 45;
         
         if(player->getSize().intersects(bounds))
-            player->hitObject(sprites.at(count));
+            player->handleCollision();
     }
 }
 
@@ -95,21 +89,18 @@ void In_Game::drawWorld(sf::RenderWindow & window)
             window.draw(background_sprite);
         }
     }
-    
-    // Objects
-    for(unsigned count{}; count < sprites.size(); count++)
-        window.draw(sprites.at(count));
+
+    for(auto && object : objects)
+        object->draw(window);
 }
 
 void In_Game::constructObjects()
 {
     // House
-    sprites.at(0).setTextureRect(sf::IntRect(99, 0, 74, 80));
-    sprites.at(0).setPosition(320, 320);
-    
+    objects.push_back(make_unique<House>(sf::Vector2f(320, 320)));
+
     // Grave
-    sprites.at(1).setTextureRect(sf::IntRect(567, 83, 20, 24));
-    sprites.at(1).setPosition(500, 320);
+    objects.push_back(make_unique<Grave>(sf::Vector2f(500, 320)));
 }
 
 Pause_Menu::Pause_Menu(Game & game) :
