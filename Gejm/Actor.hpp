@@ -7,7 +7,7 @@
 class Actor
 {
 public:
-    Actor() = default;
+    Actor(sf::Vector2f);
     virtual ~Actor() = default;
     virtual void handleInput(sf::Event &) = 0;
     virtual void handleCollision() = 0;
@@ -15,6 +15,7 @@ public:
     virtual void draw(sf::RenderWindow &) = 0;
 protected:
     sf::Sprite sprite{};
+    sf::Vector2f position{};
 };
 
 class Player : public Actor
@@ -30,9 +31,9 @@ public:
 private:
     void handleSlashing();
     void animate();
-    sf::Texture player{};
-    sf::Vector2f position{};
+    
     std::unique_ptr<Controllers> controllers{};
+    sf::Texture player{};
     sf::Clock slash_clock{};
     sf::Clock moving_clock{};
     bool slash{false};

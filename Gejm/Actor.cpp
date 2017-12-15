@@ -5,8 +5,18 @@
 using namespace constants;
 using namespace std;
 
+Actor::Actor(sf::Vector2f position) :
+position(position) {}
+
+/*___  _       _ __   __ ___  ___
+ | _ \| |     /_\\ \ / /| __|| _ \
+ |  _/| |__  / _ \\ V / | _| |   /
+ |_|  |____|/_/ \_\|_|  |___||_|_\
+ */
+
 Player::Player() :
-position(window_width/2, window_height/2), controllers(make_unique<Controllers>())
+Actor(sf::Vector2f(window_width/2, window_height/2)),
+controllers(make_unique<Controllers>())
 {
     if(!player.loadFromFile(resourcePath() + "character.png"))
         throw std::invalid_argument("Player texture not found.");
@@ -14,7 +24,7 @@ position(window_width/2, window_height/2), controllers(make_unique<Controllers>(
     sprite.setTexture(player);
     sprite.setTextureRect(sf::IntRect(0, 6, 16, 22));
     sprite.setScale(2.0, 2.0);
-    sprite.setPosition(window_width/2, window_height/2);
+    sprite.setPosition(position);
     
     slash_clock.restart();
     moving_clock.restart();

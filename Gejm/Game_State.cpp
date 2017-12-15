@@ -7,6 +7,12 @@ using namespace constants;
 Game_State::Game_State(Game & game) :
 game(game) {}
 
+/*__  __   _   ___ _  _   __  __ ___ _  _ _   _
+ |  \/  | /_\ |_ _| \| | |  \/  | __| \| | | | |
+ | |\/| |/ _ \ | || .` | | |\/| | _|| .` | |_| |
+ |_|  |_/_/ \_\___|_|\_| |_|  |_|___|_|\_|\___/
+ */
+
 Main_Menu::Main_Menu(Game & game) :
 Game_State(game)
 {
@@ -38,6 +44,12 @@ void Main_Menu::draw(sf::RenderWindow & window)
     window.draw(background_sprite);
     window.draw(title);
 }
+
+/*___ _  _    ___   _   __  __ ___
+ |_ _| \| |  / __| /_\ |  \/  | __|
+  | || .` | | (_ |/ _ \| |\/| | _|
+ |___|_|\_|  \___/_/ \_\_|  |_|___|
+ */
 
 In_Game::In_Game(Game & game) :
 Game_State(game), player(make_unique<Player>())
@@ -102,6 +114,12 @@ void In_Game::constructObjects()
     // Grave
     objects.push_back(make_unique<Grave>(sf::Vector2f(500, 320)));
 }
+
+/*___  _  _   _ ___ ___   __  __ ___ _  _ _   _
+ | _ \/_\| | | / __| __| |  \/  | __| \| | | | |
+ |  _/ _ \ |_| \__ \ _|  | |\/| | _|| .` | |_| |
+ |_|/_/ \_\___/|___/___| |_|  |_|___|_|\_|\___/
+ */
 
 Pause_Menu::Pause_Menu(Game & game) :
 Game_State(game)
