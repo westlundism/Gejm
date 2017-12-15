@@ -1,5 +1,6 @@
 #include "Object.hpp"
 #include "ResourcePath.hpp"
+#include "Game.hpp"
 
 using namespace std;
 
@@ -20,7 +21,7 @@ void Object::draw(sf::RenderWindow & window)
     window.draw(sprite);
 }
 
-sf::FloatRect Object::getSize() const
+sf::FloatRect Object::getSize()
 {
     return sprite.getGlobalBounds();
 }
@@ -42,6 +43,23 @@ Object(position)
     sprite.setScale(2.0, 2.0);
 }
 
+/*___   ___   ___  ___
+ |   \ / _ \ / _ \| _ \
+ | |) | (_) | (_) |   /
+ |___/ \___/ \___/|_|_\
+ */
+
+Door::Door(sf::Vector2f position) :
+Outdoor_Object(position)
+{
+    sprite.setTexture(texture_pack_1);
+    sprite.setTextureRect(sf::IntRect(128, 54, 16, 5));
+}
+
+void Door::handleCollision(Game & game)
+{
+    game.changeState(2);
+}
 /*_  _  ___  _   _ ___ ___
  | || |/ _ \| | | / __| __|
  | __ | (_) | |_| \__ \ _|
@@ -54,7 +72,6 @@ Outdoor_Object(position)
     sprite.setTexture(texture_pack_1);
     sprite.setTextureRect(sf::IntRect(99, 0, 74, 80));
 }
-
 /*___  ___    _ __   __ ___
  / __|| _ \  /_\\ \ / /| __|
 | (_ ||   / / _ \\ V / | _|

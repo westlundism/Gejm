@@ -54,6 +54,26 @@ private:
     sf::Texture other{};
 };
 
+class In_House : public Game_State
+{
+public:
+    In_House(Game &);
+    ~In_House() = default;
+    void handleInput(sf::Event &);
+    void update(sf::Time &);
+    void draw(sf::RenderWindow &);
+private:
+    void drawHouse(sf::RenderWindow &);
+    void constructObjects();
+    
+    std::unique_ptr<Player> player{};
+    std::vector<std::unique_ptr<Object>> objects{};
+    sf::Sprite background_sprite{};
+    sf::Sprite playerinfo_sprite{};
+    sf::Texture interior{};
+    sf::Texture other{};
+};
+
 class Pause_Menu : public Game_State
 {
 public:

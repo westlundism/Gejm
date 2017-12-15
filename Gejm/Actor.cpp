@@ -14,8 +14,8 @@ position(position) {}
  |_|  |____|/_/ \_\|_|  |___||_|_\
  */
 
-Player::Player() :
-Actor(sf::Vector2f(window_width/2, window_height/2)),
+Player::Player(sf::Vector2f position) :
+Actor(position),
 controllers(make_unique<Controllers>())
 {
     if(!player.loadFromFile(resourcePath() + "character.png"))

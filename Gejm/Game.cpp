@@ -7,6 +7,7 @@ Game::Game()
 {
     states.push_back(make_unique<Main_Menu>(*this));
     states.push_back(make_unique<In_Game>(*this));
+    states.push_back(make_unique<In_House>(*this));
     states.push_back(make_unique<Pause_Menu>(*this));
 }
 

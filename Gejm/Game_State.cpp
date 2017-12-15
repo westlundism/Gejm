@@ -52,7 +52,7 @@ void Main_Menu::draw(sf::RenderWindow & window)
  */
 
 In_Game::In_Game(Game & game) :
-Game_State(game), player(make_unique<Player>())
+Game_State(game), player(make_unique<Player>(sf::Vector2f(window_width/2, window_height/2)))
 {
     if(!world.loadFromFile(resourcePath() + "Overworld.png"))
         throw invalid_argument("World texture not loaded!");
@@ -84,10 +84,16 @@ void In_Game::update(sf::Time & delta)
         object->update(delta);
         
         sf::FloatRect bounds = object->getSize();
-        bounds.height = bounds.height - 40;
+        
+        Door * temp = dynamic_cast<Door*>(object.get());
+        if(temp == nullptr)
+            bounds.height = bounds.height - 40;
         
         if(player->getSize().intersects(bounds))
+        {
             player->handleCollision();
+            object->handleCollision(game);
+        }
     }
 }
 
@@ -120,12 +126,101 @@ void In_Game::constructObjects()
 {
     // House
     objects.push_back(make_unique<House>(sf::Vector2f(320, 320)));
+    
+    // Door
+    objects.push_back(make_unique<Door>(sf::Vector2f(378, 428)));
 
     // Grave
     objects.push_back(make_unique<Grave>(sf::Vector2f(500, 320)));
     
     // Living Tree
     objects.push_back(make_unique<Living_Tree>(sf::Vector2f(700, 520)));
+}
+
+/*___ _  _   _  _  ___  _   _ ___ ___
+ |_ _| \| | | || |/ _ \| | | / __| __|
+  | || .` | | __ | (_) | |_| \__ \ _|
+ |___|_|\_| |_||_|\___/ \___/|___/___|
+ */
+
+In_House::In_House(Game & game) :
+Game_State(game), player(make_unique<Player>(sf::Vector2f(window_width/2, window_height/2)))
+{
+    if(!interior.loadFromFile(resourcePath() + "Inner.png"))
+        throw invalid_argument("World texture not loaded!");
+    
+    if(!other.loadFromFile(resourcePath() + "objects.png"))
+        throw invalid_argument("World texture not loaded!");
+    
+    background_sprite.setTexture(interior);
+    background_sprite.setScale(2.0, 2.0);
+    
+    playerinfo_sprite.setTexture(other);
+    playerinfo_sprite.setScale(3.0, 3.0);
+    playerinfo_sprite.setTextureRect(sf::IntRect(0, 226, 78, 53));
+    
+    constructObjects();
+}
+
+void In_House::handleInput(sf::Event & event)
+{
+    player->handleInput(event);
+}
+
+void In_House::update(sf::Time & delta)
+{
+    player->update(delta);
+    
+    for(auto && object : objects)
+    {
+        object->update(delta);
+        
+        sf::FloatRect bounds = object->getSize();
+        
+        Door * temp = dynamic_cast<Door*>(object.get());
+        if(temp == nullptr)
+            bounds.height = bounds.height - 40;
+        
+        if(player->getSize().intersects(bounds))
+        {
+            player->handleCollision();
+            object->handleCollision(game);
+        }
+    }
+}
+
+void In_House::draw(sf::RenderWindow & window)
+{
+    drawHouse(window);
+    window.draw(playerinfo_sprite);
+    player->draw(window);
+}
+
+void In_House::drawHouse(sf::RenderWindow & window)
+{
+    // Floor
+    background_sprite.setTextureRect(sf::IntRect(0, 16, 16, 16));
+    
+    for(int columns{}; columns < window_height/32; columns++)
+    {
+        for(int rows{}; rows < window_width/32; rows++)
+        {
+            background_sprite.setPosition(32*rows, 32*columns);
+            window.draw(background_sprite);
+        }
+    }
+    
+    for(auto && object : objects)
+        object->draw(window);
+}
+
+void In_House::constructObjects()
+{
+    // Door
+    //objects.push_back(make_unique<Door>(sf::Vector2f(378, 428)));
+    
+    // Grave
+    objects.push_back(make_unique<Grave>(sf::Vector2f(500, 320)));
 }
 
 /*___  _  _   _ ___ ___   __  __ ___ _  _ _   _

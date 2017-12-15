@@ -21,7 +21,7 @@ protected:
 class Player : public Actor
 {
 public:
-    Player();
+    Player(sf::Vector2f);
     ~Player() = default;
     void handleInput(sf::Event &);
     void handleCollision();
