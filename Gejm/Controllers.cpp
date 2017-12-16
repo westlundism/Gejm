@@ -3,7 +3,9 @@
 #include "Controllers.hpp"
 
 Controllers::Controllers() :
-left(false), right(false), up(false), down(false), space(false) {}
+left(false), right(false), up(false), down(false), space(false),
+left_allowed(true), right_allowed(true), down_allowed(true),
+up_allowed(true) {}
 
 void Controllers::handleInput(bool pressed, sf::Keyboard::Key key)
 {
@@ -37,13 +39,13 @@ sf::Vector2f Controllers::direction()
 {
     sf::Vector2f direction;
     
-    if (left)
+    if (left && left_allowed)
         direction.x -= 1.0f;
-    else if (right)
+    else if (right && right_allowed)
         direction.x += 1.0f;
-    else if (up)
+    else if (up && up_allowed)
         direction.y -= 1.0f;
-    else if (down)
+    else if (down && down_allowed)
         direction.y += 1.0f;
     
     float length = sqrt(direction.x*direction.x + direction.y*direction.y);

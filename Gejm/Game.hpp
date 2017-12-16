@@ -21,6 +21,7 @@ public:
     void run();
     void restart();
     void changeState(int);
+    int getState() const;
 private:
     std::vector<std::unique_ptr<Game_State>> states{};
     int active_state{1};

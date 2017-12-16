@@ -3,6 +3,7 @@
 #include "Game.hpp"
 
 using namespace std;
+using namespace constants;
 
 /*___   ___     _  ___  ___  _____
  / _ \ | _ ) _ | || __|/ __||_   _|
@@ -21,9 +22,14 @@ void Object::draw(sf::RenderWindow & window)
     window.draw(sprite);
 }
 
-sf::FloatRect Object::getSize()
+sf::FloatRect Object::getSize() const
 {
     return sprite.getGlobalBounds();
+}
+
+sf::Vector2f Object::getPosition() const
+{
+    return sprite.getPosition();
 }
 
 /*___  _   _ _____ ___   ___   ___  ___    ___  ___    _ ___ ___ _____
@@ -43,23 +49,21 @@ Object(position)
     sprite.setScale(2.0, 2.0);
 }
 
-/*___   ___   ___  ___
- |   \ / _ \ / _ \| _ \
- | |) | (_) | (_) |   /
- |___/ \___/ \___/|_|_\
+/*___ _  _ _____ ___ ___ ___ ___  ___    ___  ___    _ ___ ___ _____
+ |_ _| \| |_   _| __| _ \_ _/ _ \| _ \  / _ \| _ )_ | | __/ __|_   _|
+  | || .` | | | | _||   /| | (_) |   / | (_) | _ \ || | _| (__  | |
+ |___|_|\_| |_| |___|_|_\___\___/|_|_\  \___/|___/\__/|___\___| |_|
  */
 
-Door::Door(sf::Vector2f position) :
-Outdoor_Object(position)
+Interior_Object::Interior_Object(sf::Vector2f position) :
+Object(position)
 {
-    sprite.setTexture(texture_pack_1);
-    sprite.setTextureRect(sf::IntRect(128, 54, 16, 5));
+    if(!interior_pack.loadFromFile(resourcePath() + "Inner.png"))
+        throw invalid_argument("Cannot load world sprites!");
+    
+    sprite.setScale(2.0, 2.0);
 }
 
-void Door::handleCollision(Game & game)
-{
-    game.changeState(2);
-}
 /*_  _  ___  _   _ ___ ___
  | || |/ _ \| | | / __| __|
  | __ | (_) | |_| \__ \ _|
@@ -72,6 +76,12 @@ Outdoor_Object(position)
     sprite.setTexture(texture_pack_1);
     sprite.setTextureRect(sf::IntRect(99, 0, 74, 80));
 }
+
+bool House::canCollide() const
+{
+    return true;
+}
+
 /*___  ___    _ __   __ ___
  / __|| _ \  /_\\ \ / /| __|
 | (_ ||   / / _ \\ V / | _|
@@ -83,6 +93,11 @@ Outdoor_Object(position)
 {
     sprite.setTexture(texture_pack_1);
     sprite.setTextureRect(sf::IntRect(567, 83, 20, 24));
+}
+
+bool Grave::canCollide() const
+{
+    return true;
 }
 
 /*_    _____   _____ _  _  ___   _____ ___ ___ ___
@@ -134,4 +149,27 @@ void Living_Tree::update(sf::Time & delta)
         if(animation.getElapsedTime() >= sf::seconds(3.6))
             sprite.setTextureRect(sf::IntRect(0, 160, 32, 31));
     }
+}
+
+bool Living_Tree::canCollide() const
+{
+    return true;
+}
+
+/*___   ___   ___  ___   __  __   _ _____
+ |   \ / _ \ / _ \| _ \ |  \/  | /_\_   _|
+ | |) | (_) | (_) |   / | |\/| |/ _ \| |
+ |___/ \___/ \___/|_|_\ |_|  |_/_/ \_\_|
+ */
+
+Door_Mat::Door_Mat(sf::Vector2f position) :
+Interior_Object(position)
+{
+    sprite.setTexture(interior_pack);
+    sprite.setTextureRect(sf::IntRect(96, 0, 16, 16));
+}
+
+bool Door_Mat::canCollide() const
+{
+    return false;
 }

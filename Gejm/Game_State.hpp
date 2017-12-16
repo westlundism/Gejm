@@ -45,7 +45,7 @@ public:
 private:
     void drawWorld(sf::RenderWindow &);
     void constructObjects();
-    
+
     std::unique_ptr<Player> player{};
     std::vector<std::unique_ptr<Object>> objects{};
     sf::Sprite background_sprite{};

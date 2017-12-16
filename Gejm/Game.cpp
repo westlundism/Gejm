@@ -56,3 +56,8 @@ void Game::changeState(int new_state)
 {
     active_state = new_state;
 }
+
+int Game::getState() const
+{
+    return active_state;
+}

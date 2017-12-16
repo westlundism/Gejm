@@ -15,9 +15,13 @@ public:
     bool slash() const;
 private:
     bool left;
+    bool left_allowed;
     bool right;
+    bool right_allowed;
     bool up;
+    bool up_allowed;
     bool down;
+    bool down_allowed;
     bool space;
 };
 

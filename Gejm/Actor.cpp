@@ -8,6 +8,16 @@ using namespace std;
 Actor::Actor(sf::Vector2f position) :
 position(position) {}
 
+sf::FloatRect Actor::getSize() const
+{
+    return sprite.getGlobalBounds();
+}
+
+void Actor::draw(sf::RenderWindow & window)
+{
+    window.draw(sprite);
+}
+
 /*___  _       _ __   __ ___  ___
  | _ \| |     /_\\ \ / /| __|| _ \
  |  _/| |__  / _ \\ V / | _| |   /
@@ -22,8 +32,9 @@ controllers(make_unique<Controllers>())
         throw std::invalid_argument("Player texture not found.");
     
     sprite.setTexture(player);
-    sprite.setTextureRect(sf::IntRect(0, 6, 16, 22));
+    sprite.setTextureRect(sf::IntRect(0, 69, 16, 22));
     sprite.setScale(2.0, 2.0);
+    
     sprite.setPosition(position);
     
     slash_clock.restart();
@@ -48,40 +59,60 @@ void Player::handleInput(sf::Event & event)
         slash = true;
 }
 
+void Player::handleCollision(unique_ptr<Object> & object)
+{
+    sf::FloatRect outer_bounds = sprite.getGlobalBounds();
+    sf::FloatRect object_bounds = object->getSize();
+    object_bounds.height -= 40;
+    
+    if(controllers->left)
+    {
+        --outer_bounds.left;
+        if(outer_bounds.intersects(object_bounds))
+            position.x += moving_speed;
+        ++outer_bounds.left;
+    }
+    
+    if(controllers->right)
+    {
+        ++outer_bounds.width;
+        if(outer_bounds.intersects(object_bounds))
+            position.x -= moving_speed;
+        --outer_bounds.width;
+    }
+    
+    if(controllers->up)
+    {
+        ++outer_bounds.height;
+        if(outer_bounds.intersects(object_bounds))
+            position.y += moving_speed;
+        --outer_bounds.height;
+    }
+    
+    if(controllers->down)
+    {
+        --outer_bounds.top;
+        if(outer_bounds.intersects(object_bounds))
+            position.y -= moving_speed;
+        ++outer_bounds.top;
+    }
+}
+
 void Player::update(sf::Time & delta)
 {
-    float distance = 250.0f * (delta.asMicroseconds() / 2000000.0f);
-    position += controllers->direction() * distance;
+    moving_speed = 250.0f * (delta.asMicroseconds() / 2000000.0f);
+    position += controllers->direction() * moving_speed;
     sprite.setPosition(position);
-
+    
     animate();
     
     if(slash)
         handleSlashing();
 }
 
-void Player::draw(sf::RenderWindow & window)
+void Player::setPosition(sf::Vector2f pos)
 {
-    window.draw(sprite);
-}
-
-void Player::handleCollision()
-{
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        position.y += 3.0f;
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        position.x += 3.0f;
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        position.y -= 3.0f;
-    
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        position.x -= 3.0f;
+    sprite.setPosition(pos);
 }
 
 sf::FloatRect Player::getSize()
