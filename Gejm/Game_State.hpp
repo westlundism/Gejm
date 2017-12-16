@@ -6,6 +6,8 @@
 #include "Object.hpp"
 
 class Game;
+class Player;
+class Object;
 
 class Game_State
 {

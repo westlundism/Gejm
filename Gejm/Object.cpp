@@ -22,6 +22,45 @@ void Object::draw(sf::RenderWindow & window)
     window.draw(sprite);
 }
 
+void Object::handleCollision(unique_ptr<Player> & player)
+{
+    sf::FloatRect outer_bounds = player->getSize();
+    sf::FloatRect object_bounds = sprite.getGlobalBounds();
+    object_bounds.height -= 30;
+    
+    if(player->controllers->left)
+    {
+        --outer_bounds.left;
+        if(outer_bounds.intersects(object_bounds))
+            player->position.x += player->moving_speed;
+        ++outer_bounds.left;
+    }
+    
+    if(player->controllers->right)
+    {
+        ++outer_bounds.width;
+        if(outer_bounds.intersects(object_bounds))
+            player->position.x -= player->moving_speed;
+        --outer_bounds.width;
+    }
+    
+    if(player->controllers->up)
+    {
+        ++outer_bounds.height;
+        if(outer_bounds.intersects(object_bounds))
+            player->position.y += player->moving_speed;
+        --outer_bounds.height;
+    }
+    
+    if(player->controllers->down)
+    {
+        --outer_bounds.top;
+        if(outer_bounds.intersects(object_bounds))
+            player->position.y -= player->moving_speed;
+        ++outer_bounds.top;
+    }
+}
+
 sf::FloatRect Object::getSize() const
 {
     return sprite.getGlobalBounds();

@@ -7,6 +7,7 @@
 class Controllers
 {
     friend class Player;
+    friend class Object;
 public:
     Controllers();
     ~Controllers() = default;
@@ -15,13 +16,9 @@ public:
     bool slash() const;
 private:
     bool left;
-    bool left_allowed;
     bool right;
-    bool right_allowed;
     bool up;
-    bool up_allowed;
     bool down;
-    bool down_allowed;
     bool space;
 };
 

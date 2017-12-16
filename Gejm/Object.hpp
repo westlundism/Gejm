@@ -5,6 +5,7 @@
 #include "Actor.hpp"
 
 class Game;
+class Player;
 
 class Object
 {
@@ -14,6 +15,7 @@ public:
     virtual bool canCollide() const = 0;
     virtual void update(sf::Time &) {}
     void draw(sf::RenderWindow &);
+    void handleCollision(std::unique_ptr<Player> &);
     sf::FloatRect getSize() const;
     sf::Vector2f getPosition() const;
 protected:

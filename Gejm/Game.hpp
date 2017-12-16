@@ -13,6 +13,7 @@ namespace constants
 }
 
 class Game_State;
+class Player;
 
 class Game
 {

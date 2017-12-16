@@ -1,6 +1,7 @@
 #include "Actor.hpp"
 #include "Game.hpp"
 #include "ResourcePath.hpp"
+#include "Game_State.hpp"
 
 using namespace constants;
 using namespace std;
@@ -69,42 +70,29 @@ void Player::handleInput(sf::Event & event)
         slash = true;
 }
 
-void Player::handleCollision(unique_ptr<Object> & object)
+void Player::handleCollision(Game & game)
 {
-    sf::FloatRect outer_bounds = sprite.getGlobalBounds();
-    sf::FloatRect object_bounds = object->getSize();
-    object_bounds.height -= 30;
-    
-    if(controllers->left)
+    if(game.getState() == 2)
     {
-        --outer_bounds.left;
-        if(outer_bounds.intersects(object_bounds))
-            position.x += moving_speed;
-        ++outer_bounds.left;
+        if(position.x < window_width/3)
+            position.x = window_width/3;
+        if(position.x > window_width*2/3 - 32)
+            position.x = window_width*2/3 - 32;
+        if(position.y < window_height/3)
+            position.y = window_height/3;
+        if(position.y > window_height*2/3 - 32)
+            position.y = window_height*2/3 - 32;
     }
-    
-    if(controllers->right)
+    else
     {
-        ++outer_bounds.width;
-        if(outer_bounds.intersects(object_bounds))
-            position.x -= moving_speed;
-        --outer_bounds.width;
-    }
-    
-    if(controllers->up)
-    {
-        ++outer_bounds.height;
-        if(outer_bounds.intersects(object_bounds))
-            position.y += moving_speed;
-        --outer_bounds.height;
-    }
-    
-    if(controllers->down)
-    {
-        --outer_bounds.top;
-        if(outer_bounds.intersects(object_bounds))
-            position.y -= moving_speed;
-        ++outer_bounds.top;
+        if(position.x < 0)
+            position.x = 0;
+        if(position.x > window_width - 32)
+            position.x = window_width - 32;
+        if(position.y < 0)
+            position.y = 0;
+        if(position.y > window_height - 32)
+            position.y = window_height - 32;
     }
 }
 
@@ -135,11 +123,11 @@ void Player::handleSlashing()
         if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
             slash_clock.restart();
         if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
-            sprite.setTextureRect(sf::IntRect(7, 230, 16, 25));
+            sprite.setTextureRect(sf::IntRect(7,   230, 16, 25));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
-            sprite.setTextureRect(sf::IntRect(40, 230, 16, 26));
+            sprite.setTextureRect(sf::IntRect(40,  230, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
-            sprite.setTextureRect(sf::IntRect(72, 230, 16, 26));
+            sprite.setTextureRect(sf::IntRect(72,  230, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 230, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.5))
@@ -154,11 +142,11 @@ void Player::handleSlashing()
         if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
             slash_clock.restart();
         if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
-            sprite.setTextureRect(sf::IntRect(7, 198, 16, 25));
+            sprite.setTextureRect(sf::IntRect(7,   198, 16, 25));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
-            sprite.setTextureRect(sf::IntRect(40, 198, 16, 26));
+            sprite.setTextureRect(sf::IntRect(40,  198, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
-            sprite.setTextureRect(sf::IntRect(72, 198, 16, 26));
+            sprite.setTextureRect(sf::IntRect(72,  198, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 198, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.5))
@@ -173,11 +161,11 @@ void Player::handleSlashing()
         if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
             slash_clock.restart();
         if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
-            sprite.setTextureRect(sf::IntRect(7, 166, 16, 25));
+            sprite.setTextureRect(sf::IntRect(7,   166, 16, 25));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
-            sprite.setTextureRect(sf::IntRect(40, 166, 16, 26));
+            sprite.setTextureRect(sf::IntRect(40,  166, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
-            sprite.setTextureRect(sf::IntRect(72, 166, 16, 26));
+            sprite.setTextureRect(sf::IntRect(72,  166, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 166, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.5))
@@ -192,11 +180,11 @@ void Player::handleSlashing()
         if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
             slash_clock.restart();
         if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
-            sprite.setTextureRect(sf::IntRect(7, 134, 16, 25));
+            sprite.setTextureRect(sf::IntRect(7,   134, 16, 25));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
-            sprite.setTextureRect(sf::IntRect(40, 134, 16, 26));
+            sprite.setTextureRect(sf::IntRect(40,  134, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
-            sprite.setTextureRect(sf::IntRect(72, 134, 16, 26));
+            sprite.setTextureRect(sf::IntRect(72,  134, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 134, 16, 26));
         if(slash_clock.getElapsedTime() >= sf::seconds(0.5))

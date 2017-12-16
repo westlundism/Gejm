@@ -16,7 +16,7 @@ public:
     Actor() = default;
     virtual ~Actor() = default;
     virtual void handleInput(sf::Event &) = 0;
-    virtual void handleCollision(std::unique_ptr<Object> &) = 0;
+    virtual void handleCollision(Game &) = 0;
     virtual void update(sf::Time &) = 0;
     virtual void draw(sf::RenderWindow &);
     void setPosition(sf::Vector2f);
@@ -29,11 +29,12 @@ protected:
 
 class Player : public Actor
 {
+    friend class Object;
 public:
     Player(Game &);
     ~Player() = default;
     void handleInput(sf::Event &);
-    void handleCollision(std::unique_ptr<Object> &);
+    void handleCollision(Game &);
     void update(sf::Time &);
     void stopMovement();
 private:

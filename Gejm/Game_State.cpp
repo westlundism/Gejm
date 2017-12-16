@@ -81,6 +81,7 @@ void In_Game::handleInput(sf::Event & event)
 void In_Game::update(sf::Time & delta)
 {
     player->update(delta);
+    player->handleCollision(game);
     
     for(auto && object : objects)
     {
@@ -89,12 +90,14 @@ void In_Game::update(sf::Time & delta)
         Entrance * temp = dynamic_cast<Entrance*>(object.get());
         
         if(object->canCollide() && temp == nullptr)
-            player->handleCollision(object);
+            object->handleCollision(player);
+        
+        //player->collideWith(object);
         
         if(temp != nullptr && player->getSize().intersects(object->getSize()))
         {
             game.changeState(2);
-            player->setPosition(sf::Vector2f(window_width/2 - 16,
+            player->setPosition(sf::Vector2f(window_width/2  - 16,
                                              window_height/2 + 100));
         }
     }
@@ -176,6 +179,7 @@ void In_House::handleInput(sf::Event & event)
 void In_House::update(sf::Time & delta)
 {
     player->update(delta);
+    player->handleCollision(game);
     
     for(auto && object : objects)
     {
@@ -184,12 +188,12 @@ void In_House::update(sf::Time & delta)
         Entrance * temp = dynamic_cast<Entrance*>(object.get());
         
         if(object->canCollide() && temp == nullptr)
-            player->handleCollision(object);
+            object->handleCollision(player);
         
         if(temp != nullptr && player->getSize().intersects(object->getSize()))
         {
             game.changeState(1);
-            player->setPosition(sf::Vector2f(320+74-16,320+160-16));
+            player->setPosition(sf::Vector2f(320+74-16, 320+160-16));
         }
     }
 }
@@ -210,7 +214,7 @@ void In_House::drawHouse(sf::RenderWindow & window)
     {
         for(int rows{}; rows < window_width/32/3; rows++)
         {
-            background_sprite.setPosition(window_width/3 + 32*rows,
+            background_sprite.setPosition(window_width/3  + 32*rows,
                                           window_height/3 + 32*columns);
             window.draw(background_sprite);
         }
