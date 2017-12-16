@@ -10,20 +10,21 @@ class Game;
 class Game_State
 {
 public:
-    Game_State(Game &);
+    Game_State(Game &, std::unique_ptr<Player> &);
     virtual ~Game_State() = default;
     virtual void handleInput(sf::Event &) = 0;
     virtual void update(sf::Time &) = 0;
     virtual void draw(sf::RenderWindow &) = 0;
 protected:
     Game & game;
+    std::unique_ptr<Player> & player;
     sf::Font font{};
 };
 
 class Main_Menu : public Game_State
 {
 public:
-    Main_Menu(Game &);
+    Main_Menu(Game &, std::unique_ptr<Player> &);
     ~Main_Menu() = default;
     void handleInput(sf::Event &);
     void update(sf::Time &);
@@ -37,7 +38,7 @@ private:
 class In_Game : public Game_State
 {
 public:
-    In_Game(Game &);
+    In_Game(Game &, std::unique_ptr<Player> &);
     ~In_Game() = default;
     void handleInput(sf::Event &);
     void update(sf::Time &);
@@ -46,7 +47,6 @@ private:
     void drawWorld(sf::RenderWindow &);
     void constructObjects();
 
-    std::unique_ptr<Player> player{};
     std::vector<std::unique_ptr<Object>> objects{};
     sf::Sprite background_sprite{};
     sf::Sprite playerinfo_sprite{};
@@ -57,7 +57,7 @@ private:
 class In_House : public Game_State
 {
 public:
-    In_House(Game &);
+    In_House(Game &, std::unique_ptr<Player> &);
     ~In_House() = default;
     void handleInput(sf::Event &);
     void update(sf::Time &);
@@ -66,7 +66,6 @@ private:
     void drawHouse(sf::RenderWindow &);
     void constructObjects();
     
-    std::unique_ptr<Player> player{};
     std::vector<std::unique_ptr<Object>> objects{};
     sf::Sprite background_sprite{};
     sf::Sprite playerinfo_sprite{};
@@ -77,7 +76,7 @@ private:
 class Pause_Menu : public Game_State
 {
 public:
-    Pause_Menu(Game &);
+    Pause_Menu(Game &, std::unique_ptr<Player> &);
     ~Pause_Menu() = default;
     void handleInput(sf::Event &);
     void update(sf::Time &);

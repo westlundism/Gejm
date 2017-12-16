@@ -64,6 +64,24 @@ Object(position)
     sprite.setScale(2.0, 2.0);
 }
 
+/*___ _  _ _____ ___    _   _  _  ___ ___
+ | __| \| |_   _| _ \  /_\ | \| |/ __| __|
+ | _|| .` | | | |   / / _ \| .` | (__| _|
+ |___|_|\_| |_| |_|_\/_/ \_\_|\_|\___|___|
+ */
+
+Entrance::Entrance(sf::Vector2f position) :
+Outdoor_Object(position)
+{
+    sprite.setTexture(texture_pack_1);
+    sprite.setTextureRect(sf::IntRect(300, 300, 16, 5));
+}
+
+bool Entrance::canCollide() const
+{
+    return true;
+}
+
 /*_  _  ___  _   _ ___ ___
  | || |/ _ \| | | / __| __|
  | __ | (_) | |_| \__ \ _|

@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Game_State.hpp"
+#include "Actor.hpp"
 #include <vector>
 
 namespace constants
@@ -24,6 +25,7 @@ public:
     int getState() const;
 private:
     std::vector<std::unique_ptr<Game_State>> states{};
+    std::unique_ptr<Player> player;
     int active_state{1};
 };
 

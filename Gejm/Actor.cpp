@@ -5,17 +5,24 @@
 using namespace constants;
 using namespace std;
 
-Actor::Actor(sf::Vector2f position) :
-position(position) {}
+void Actor::draw(sf::RenderWindow & window)
+{
+    window.draw(sprite);
+}
+
+void Actor::setPosition(sf::Vector2f pos)
+{
+    position = pos;
+}
+
+sf::Vector2f Actor::getPosition() const
+{
+    return sprite.getPosition();
+}
 
 sf::FloatRect Actor::getSize() const
 {
     return sprite.getGlobalBounds();
-}
-
-void Actor::draw(sf::RenderWindow & window)
-{
-    window.draw(sprite);
 }
 
 /*___  _       _ __   __ ___  ___
@@ -24,8 +31,7 @@ void Actor::draw(sf::RenderWindow & window)
  |_|  |____|/_/ \_\|_|  |___||_|_\
  */
 
-Player::Player(sf::Vector2f position) :
-Actor(position),
+Player::Player(Game & game) :
 controllers(make_unique<Controllers>())
 {
     if(!player.loadFromFile(resourcePath() + "character.png"))
@@ -34,8 +40,12 @@ controllers(make_unique<Controllers>())
     sprite.setTexture(player);
     sprite.setTextureRect(sf::IntRect(0, 69, 16, 22));
     sprite.setScale(2.0, 2.0);
+    sprite.setPosition(window_width/2 - 16, window_height/2);
     
-    sprite.setPosition(position);
+    if(game.getState() == 1)
+        sprite.setPosition(window_width/2 - 16, window_height/2);
+    else if(game.getState() == 2)
+        sprite.setPosition(window_width/2 - 16, window_height/2 + 100);
     
     slash_clock.restart();
     moving_clock.restart();
@@ -63,7 +73,7 @@ void Player::handleCollision(unique_ptr<Object> & object)
 {
     sf::FloatRect outer_bounds = sprite.getGlobalBounds();
     sf::FloatRect object_bounds = object->getSize();
-    object_bounds.height -= 40;
+    object_bounds.height -= 30;
     
     if(controllers->left)
     {
@@ -110,14 +120,12 @@ void Player::update(sf::Time & delta)
         handleSlashing();
 }
 
-void Player::setPosition(sf::Vector2f pos)
+void Player::stopMovement()
 {
-    sprite.setPosition(pos);
-}
-
-sf::FloatRect Player::getSize()
-{
-    return sprite.getGlobalBounds();
+    controllers->left = false;
+    controllers->right = false;
+    controllers->up = false;
+    controllers->down = false;
 }
 
 void Player::handleSlashing()

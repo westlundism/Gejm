@@ -7,16 +7,20 @@
 #include <algorithm>
 
 class Object;
+class Entrance;
+class Game;
 
 class Actor
 {
 public:
-    Actor(sf::Vector2f);
+    Actor() = default;
     virtual ~Actor() = default;
     virtual void handleInput(sf::Event &) = 0;
     virtual void handleCollision(std::unique_ptr<Object> &) = 0;
     virtual void update(sf::Time &) = 0;
     virtual void draw(sf::RenderWindow &);
+    void setPosition(sf::Vector2f);
+    sf::Vector2f getPosition() const;
     sf::FloatRect getSize() const;
 protected:
     sf::Sprite sprite{};
@@ -26,13 +30,12 @@ protected:
 class Player : public Actor
 {
 public:
-    Player(sf::Vector2f);
+    Player(Game &);
     ~Player() = default;
     void handleInput(sf::Event &);
     void handleCollision(std::unique_ptr<Object> &);
     void update(sf::Time &);
-    void setPosition(sf::Vector2f);
-    sf::FloatRect getSize();
+    void stopMovement();
 private:
     void handleSlashing();
     void animate();

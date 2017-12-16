@@ -40,6 +40,14 @@ protected:
     sf::Texture interior_pack{};
 };
 
+class Entrance : public Outdoor_Object
+{
+public:
+    Entrance(sf::Vector2f);
+    ~Entrance() = default;
+    bool canCollide() const;
+};
+
 class House : public Outdoor_Object
 {
 public:

@@ -4,8 +4,8 @@
 using namespace std;
 using namespace constants;
 
-Game_State::Game_State(Game & game) :
-game(game) {}
+Game_State::Game_State(Game & game, std::unique_ptr<Player> & player) :
+game(game), player(player) {}
 
 /*__  __   _   ___ _  _   __  __ ___ _  _ _   _
  |  \/  | /_\ |_ _| \| | |  \/  | __| \| | | | |
@@ -13,8 +13,8 @@ game(game) {}
  |_|  |_/_/ \_\___|_|\_| |_|  |_|___|_|\_|\___/
  */
 
-Main_Menu::Main_Menu(Game & game) :
-Game_State(game)
+Main_Menu::Main_Menu(Game & game, std::unique_ptr<Player> & player) :
+Game_State(game, player)
 {
     if(!background.loadFromFile(resourcePath() + "background0.png"))
         throw invalid_argument("Background not loaded!");
@@ -51,9 +51,8 @@ void Main_Menu::draw(sf::RenderWindow & window)
  |___|_|\_|  \___/_/ \_\_|  |_|___|
  */
 
-In_Game::In_Game(Game & game) :
-Game_State(game), player(make_unique<Player>(sf::Vector2f(window_width/2 - 16,
-                                                            window_height/2)))
+In_Game::In_Game(Game & game, std::unique_ptr<Player> & player) :
+Game_State(game, player)
 {
     if(!world.loadFromFile(resourcePath() + "Overworld.png"))
         throw invalid_argument("World texture not loaded!");
@@ -67,7 +66,10 @@ Game_State(game), player(make_unique<Player>(sf::Vector2f(window_width/2 - 16,
     playerinfo_sprite.setTexture(other);
     playerinfo_sprite.setScale(3.0, 3.0);
     playerinfo_sprite.setTextureRect(sf::IntRect(0, 226, 78, 53));
-
+    
+    player->setPosition(sf::Vector2f(window_width/2 - 16,
+                                     window_height/2));
+    
     constructObjects();
 }
 
@@ -82,9 +84,19 @@ void In_Game::update(sf::Time & delta)
     
     for(auto && object : objects)
     {
-        if(object->canCollide())
-            player->handleCollision(object);
         object->update(delta);
+        
+        Entrance * temp = dynamic_cast<Entrance*>(object.get());
+        
+        if(object->canCollide() && temp == nullptr)
+            player->handleCollision(object);
+        
+        if(temp != nullptr && player->getSize().intersects(object->getSize()))
+        {
+            game.changeState(2);
+            player->setPosition(sf::Vector2f(window_width/2 - 16,
+                                             window_height/2 + 100));
+        }
     }
 }
 
@@ -118,6 +130,9 @@ void In_Game::constructObjects()
     // House
     objects.push_back(make_unique<House>(sf::Vector2f(320, 320)));
     
+    // Entrance
+    objects.push_back(make_unique<Entrance>(sf::Vector2f(378, 440)));
+    
     // Grave
     objects.push_back(make_unique<Grave>(sf::Vector2f(500, 320)));
     
@@ -131,9 +146,8 @@ void In_Game::constructObjects()
  |___|_|\_| |_||_|\___/ \___/|___/___|
  */
 
-In_House::In_House(Game & game) :
-Game_State(game), player(make_unique<Player>(sf::Vector2f(window_width/2 - 16,
-                                                          window_height/2 + 100)))
+In_House::In_House(Game & game, std::unique_ptr<Player> & player) :
+Game_State(game, player)
 {
     if(!interior.loadFromFile(resourcePath() + "Inner.png"))
         throw invalid_argument("World texture not loaded!");
@@ -147,6 +161,9 @@ Game_State(game), player(make_unique<Player>(sf::Vector2f(window_width/2 - 16,
     playerinfo_sprite.setTexture(other);
     playerinfo_sprite.setScale(3.0, 3.0);
     playerinfo_sprite.setTextureRect(sf::IntRect(0, 226, 78, 53));
+    
+    player->setPosition(sf::Vector2f(window_width/2 - 16,
+                                     window_height/2 + 100));
     
     constructObjects();
 }
@@ -163,20 +180,17 @@ void In_House::update(sf::Time & delta)
     for(auto && object : objects)
     {
         object->update(delta);
-        /*
-        sf::FloatRect bounds = object->getSize();
         
-        Door * temp = dynamic_cast<Door*>(object.get());
-        if(temp == nullptr)
-            bounds.height = bounds.height - 40;
+        Entrance * temp = dynamic_cast<Entrance*>(object.get());
         
-        if(player->getSize().intersects(bounds) && object->canCollide())
+        if(object->canCollide() && temp == nullptr)
+            player->handleCollision(object);
+        
+        if(temp != nullptr && player->getSize().intersects(object->getSize()))
         {
-            player->handleCollision();
-            if(temp != nullptr)
-                game.changeState(1);
+            game.changeState(1);
+            player->setPosition(sf::Vector2f(320+74-16,320+160-16));
         }
-        */
     }
 }
 
@@ -208,9 +222,9 @@ void In_House::drawHouse(sf::RenderWindow & window)
 
 void In_House::constructObjects()
 {
-    // Door
-    //objects.push_back(make_unique<Door>(sf::Vector2f(window_width/2 - 16,
-    //window_height/2 + 190)));
+    // Entrance
+    objects.push_back(make_unique<Entrance>(sf::Vector2f(window_width/2 - 16,
+                                                         window_height/2 + 160)));
     
     // Door Mat
     objects.push_back(make_unique<Door_Mat>(sf::Vector2f(window_width/2 - 16,
@@ -223,8 +237,8 @@ void In_House::constructObjects()
  |_|/_/ \_\___/|___/___| |_|  |_|___|_|\_|\___/
  */
 
-Pause_Menu::Pause_Menu(Game & game) :
-Game_State(game)
+Pause_Menu::Pause_Menu(Game & game, std::unique_ptr<Player> & player) :
+Game_State(game, player)
 {
     
 }
