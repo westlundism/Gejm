@@ -98,7 +98,10 @@ void Player::handleCollision(Game & game)
 
 void Player::update(sf::Time & delta)
 {
-    moving_speed = 250.0f * (delta.asMicroseconds() / 2000000.0f);
+    if(controllers->shift)
+        moving_speed = 250.0f * (delta.asMicroseconds() / 1000000.0f);
+    else
+        moving_speed = 250.0f * (delta.asMicroseconds() / 2000000.0f);
     position += controllers->direction() * moving_speed;
     sprite.setPosition(position);
     

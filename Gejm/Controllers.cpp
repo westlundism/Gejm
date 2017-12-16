@@ -4,7 +4,7 @@
 
 Controllers::Controllers() :
 left(false), right(false), up(false),
-down(false), space(false) {}
+down(false), space(false), shift(false) {}
 
 void Controllers::handleInput(bool pressed, sf::Keyboard::Key key)
 {
@@ -29,6 +29,8 @@ void Controllers::handleInput(bool pressed, sf::Keyboard::Key key)
         case sf::Keyboard::Space:
             space = pressed;
             break;
+        case sf::Keyboard::LShift:
+            shift = pressed;
         default:
             break;
     }

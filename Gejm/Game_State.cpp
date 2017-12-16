@@ -81,18 +81,28 @@ void In_Game::handleInput(sf::Event & event)
 void In_Game::update(sf::Time & delta)
 {
     player->update(delta);
+    for(auto && object : objects)
+        object->update(delta);
+    handleCollision();
+}
+
+void In_Game::draw(sf::RenderWindow & window)
+{
+    drawWorld(window);
+    window.draw(playerinfo_sprite);
+    player->draw(window);
+}
+
+void In_Game::handleCollision()
+{
     player->handleCollision(game);
     
     for(auto && object : objects)
     {
-        object->update(delta);
-        
         Entrance * temp = dynamic_cast<Entrance*>(object.get());
         
         if(object->canCollide() && temp == nullptr)
             object->handleCollision(player);
-        
-        //player->collideWith(object);
         
         if(temp != nullptr && player->getSize().intersects(object->getSize()))
         {
@@ -101,13 +111,6 @@ void In_Game::update(sf::Time & delta)
                                              window_height/2 + 100));
         }
     }
-}
-
-void In_Game::draw(sf::RenderWindow & window)
-{
-    drawWorld(window);
-    window.draw(playerinfo_sprite);
-    player->draw(window);
 }
 
 void In_Game::drawWorld(sf::RenderWindow & window)
@@ -179,12 +182,24 @@ void In_House::handleInput(sf::Event & event)
 void In_House::update(sf::Time & delta)
 {
     player->update(delta);
+    for(auto && object : objects)
+        object->update(delta);
+    handleCollision();
+}
+
+void In_House::draw(sf::RenderWindow & window)
+{
+    drawHouse(window);
+    window.draw(playerinfo_sprite);
+    player->draw(window);
+}
+
+void In_House::handleCollision()
+{
     player->handleCollision(game);
     
     for(auto && object : objects)
     {
-        object->update(delta);
-        
         Entrance * temp = dynamic_cast<Entrance*>(object.get());
         
         if(object->canCollide() && temp == nullptr)
@@ -196,13 +211,6 @@ void In_House::update(sf::Time & delta)
             player->setPosition(sf::Vector2f(320+74-16, 320+160-16));
         }
     }
-}
-
-void In_House::draw(sf::RenderWindow & window)
-{
-    drawHouse(window);
-    window.draw(playerinfo_sprite);
-    player->draw(window);
 }
 
 void In_House::drawHouse(sf::RenderWindow & window)

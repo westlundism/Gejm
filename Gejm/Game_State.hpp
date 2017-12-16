@@ -15,6 +15,7 @@ public:
     Game_State(Game &, std::unique_ptr<Player> &);
     virtual ~Game_State() = default;
     virtual void handleInput(sf::Event &) = 0;
+    virtual void handleCollision() {}
     virtual void update(sf::Time &) = 0;
     virtual void draw(sf::RenderWindow &) = 0;
 protected:
@@ -45,6 +46,7 @@ public:
     void handleInput(sf::Event &);
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
+    void handleCollision();
 private:
     void drawWorld(sf::RenderWindow &);
     void constructObjects();
@@ -64,6 +66,7 @@ public:
     void handleInput(sf::Event &);
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
+    void handleCollision();
 private:
     void drawHouse(sf::RenderWindow &);
     void constructObjects();

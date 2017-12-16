@@ -20,6 +20,7 @@ private:
     bool up;
     bool down;
     bool space;
+    bool shift;
 };
 
 #endif /* Controllers_hpp */
