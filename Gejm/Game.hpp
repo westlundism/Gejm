@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "Game_State.hpp"
 #include "Actor.hpp"
+#include "User_Interface.hpp"
 #include <vector>
 
 namespace constants
@@ -27,6 +28,7 @@ public:
 private:
     std::vector<std::unique_ptr<Game_State>> states{};
     std::unique_ptr<Player> player;
+    std::unique_ptr<User_Interface> ui;
     int active_state{1};
 };
 

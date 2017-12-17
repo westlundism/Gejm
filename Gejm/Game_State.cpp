@@ -4,8 +4,9 @@
 using namespace std;
 using namespace constants;
 
-Game_State::Game_State(Game & game, std::unique_ptr<Player> & player) :
-game(game), player(player) {}
+Game_State::Game_State(Game & game, std::unique_ptr<Player> & player,
+                       std::unique_ptr<User_Interface> & ui) :
+game(game), player(player), ui(ui) {}
 
 /*__  __   _   ___ _  _   __  __ ___ _  _ _   _
  |  \/  | /_\ |_ _| \| | |  \/  | __| \| | | | |
@@ -13,8 +14,9 @@ game(game), player(player) {}
  |_|  |_/_/ \_\___|_|\_| |_|  |_|___|_|\_|\___/
  */
 
-Main_Menu::Main_Menu(Game & game, std::unique_ptr<Player> & player) :
-Game_State(game, player)
+Main_Menu::Main_Menu(Game & game, std::unique_ptr<Player> & player,
+                     std::unique_ptr<User_Interface> & ui) :
+Game_State(game, player, ui)
 {
     if(!background.loadFromFile(resourcePath() + "background0.png"))
         throw invalid_argument("Background not loaded!");
@@ -51,8 +53,9 @@ void Main_Menu::draw(sf::RenderWindow & window)
  |___|_|\_|  \___/_/ \_\_|  |_|___|
  */
 
-In_Game::In_Game(Game & game, std::unique_ptr<Player> & player) :
-Game_State(game, player)
+In_Game::In_Game(Game & game, std::unique_ptr<Player> & player,
+                 std::unique_ptr<User_Interface> & ui) :
+Game_State(game, player, ui)
 {
     if(!world.loadFromFile(resourcePath() + "Overworld.png"))
         throw invalid_argument("World texture not loaded!");
@@ -62,10 +65,6 @@ Game_State(game, player)
 
     background_sprite.setTexture(world);
     background_sprite.setScale(2.0, 2.0);
-    
-    playerinfo_sprite.setTexture(other);
-    playerinfo_sprite.setScale(3.0, 3.0);
-    playerinfo_sprite.setTextureRect(sf::IntRect(0, 226, 78, 53));
     
     player->setPosition(sf::Vector2f(window_width/2 - 16,
                                      window_height/2));
@@ -81,6 +80,7 @@ void In_Game::handleInput(sf::Event & event)
 void In_Game::update(sf::Time & delta)
 {
     player->update(delta);
+    ui->update(delta, player->updateHealth(0), player->updateEnergy(0));
     for(auto && object : objects)
         object->update(delta);
     handleCollision();
@@ -89,8 +89,8 @@ void In_Game::update(sf::Time & delta)
 void In_Game::draw(sf::RenderWindow & window)
 {
     drawWorld(window);
-    window.draw(playerinfo_sprite);
     player->draw(window);
+    ui->draw(window);
 }
 
 void In_Game::handleCollision()
@@ -155,8 +155,9 @@ void In_Game::constructObjects()
  |___|_|\_| |_||_|\___/ \___/|___/___|
  */
 
-In_House::In_House(Game & game, std::unique_ptr<Player> & player) :
-Game_State(game, player)
+In_House::In_House(Game & game, std::unique_ptr<Player> & player,
+                   std::unique_ptr<User_Interface> & ui) :
+Game_State(game, player, ui)
 {
     if(!interior.loadFromFile(resourcePath() + "Inner.png"))
         throw invalid_argument("World texture not loaded!");
@@ -166,10 +167,6 @@ Game_State(game, player)
     
     background_sprite.setTexture(interior);
     background_sprite.setScale(2.0, 2.0);
-    
-    playerinfo_sprite.setTexture(other);
-    playerinfo_sprite.setScale(3.0, 3.0);
-    playerinfo_sprite.setTextureRect(sf::IntRect(0, 226, 78, 53));
     
     player->setPosition(sf::Vector2f(window_width/2 - 16,
                                      window_height/2 + 100));
@@ -193,7 +190,6 @@ void In_House::update(sf::Time & delta)
 void In_House::draw(sf::RenderWindow & window)
 {
     drawHouse(window);
-    window.draw(playerinfo_sprite);
     player->draw(window);
 }
 
@@ -252,8 +248,9 @@ void In_House::constructObjects()
  |_|/_/ \_\___/|___/___| |_|  |_|___|_|\_|\___/
  */
 
-Pause_Menu::Pause_Menu(Game & game, std::unique_ptr<Player> & player) :
-Game_State(game, player)
+Pause_Menu::Pause_Menu(Game & game, std::unique_ptr<Player> & player,
+                       std::unique_ptr<User_Interface> & ui) :
+Game_State(game, player, ui)
 {
     
 }

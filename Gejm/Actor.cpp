@@ -98,8 +98,17 @@ void Player::handleCollision(Game & game)
 
 void Player::update(sf::Time & delta)
 {
-    if(controllers->shift)
+    if(energy_clock.getElapsedTime() >= sf::seconds(5.0) && energy < 10.0)
+    {
+        energy += 1.0;
+        energy_clock.restart();
+    }
+    
+    if(controllers->shift && energy > 0)
+    {
         moving_speed = 250.0f * (delta.asMicroseconds() / 1000000.0f);
+        energy -= 0.1;
+    }
     else
         moving_speed = 250.0f * (delta.asMicroseconds() / 2000000.0f);
     position += controllers->direction() * moving_speed;
@@ -111,12 +120,22 @@ void Player::update(sf::Time & delta)
         handleSlashing();
 }
 
-void Player::stopMovement()
+int Player::updateHealth(int health_update)
 {
-    controllers->left = false;
-    controllers->right = false;
-    controllers->up = false;
-    controllers->down = false;
+    if(health_update < 0 && health > 0)
+        health += health_update;
+    else if(health_update > 0 && health < 10)
+        health += health_update;
+    return health;
+}
+
+float Player::updateEnergy(float energy_update)
+{
+    if(energy_update < 0 && energy > 0)
+        energy += energy_update;
+    else if(energy_update > 0 && energy < 10.0)
+        energy += energy_update;
+    return energy;
 }
 
 void Player::handleSlashing()

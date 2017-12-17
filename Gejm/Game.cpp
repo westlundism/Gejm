@@ -6,11 +6,12 @@ using namespace constants;
 Game::Game()
 {
     player = make_unique<Player>(*this);
+    ui = make_unique<User_Interface>();
     
-    states.push_back(make_unique<Main_Menu>(*this, player));
-    states.push_back(make_unique<In_Game>(*this, player));
-    states.push_back(make_unique<In_House>(*this, player));
-    states.push_back(make_unique<Pause_Menu>(*this, player));
+    states.push_back(make_unique<Main_Menu>(*this, player, ui));
+    states.push_back(make_unique<In_Game>(*this, player, ui));
+    states.push_back(make_unique<In_House>(*this, player, ui));
+    states.push_back(make_unique<Pause_Menu>(*this, player, ui));
 }
 
 void Game::run()
@@ -52,7 +53,8 @@ void Game::restart()
 {
     changeState(0);
     player = make_unique<Player>(*this);
-    states.at(1) = make_unique<In_Game>(*this, player);
+    ui = make_unique<User_Interface>();
+    states.at(1) = make_unique<In_Game>(*this, player, ui);
 }
 
 void Game::changeState(int new_state)

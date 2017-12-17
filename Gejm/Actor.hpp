@@ -36,7 +36,8 @@ public:
     void handleInput(sf::Event &);
     void handleCollision(Game &);
     void update(sf::Time &);
-    void stopMovement();
+    int updateHealth(int);
+    float updateEnergy(float);
 private:
     void handleSlashing();
     void animate();
@@ -45,9 +46,13 @@ private:
     sf::Texture player{};
     sf::Clock slash_clock{};
     sf::Clock moving_clock{};
+    sf::Clock energy_clock{};
     bool slash{};
     char movement_direction{};
-    float moving_speed;
+    float moving_speed{};
+    
+    int health{10};
+    float energy{10.0};
 };
 
 #endif

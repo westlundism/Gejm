@@ -24,6 +24,8 @@
 		1165ED191FE30DEC00B8A66B /* Inner.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED111FE30DEC00B8A66B /* Inner.png */; };
 		1165ED1A1FE30DEC00B8A66B /* log.png in Resources */ = {isa = PBXBuildFile; fileRef = 1165ED121FE30DEC00B8A66B /* log.png */; };
 		1165ED1D1FE3133400B8A66B /* Controllers.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1165ED1B1FE3133400B8A66B /* Controllers.cpp */; };
+		119EB1B21FE67E1500E46EC3 /* User_Interface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 119EB1B01FE67E1500E46EC3 /* User_Interface.cpp */; };
+		119EB1B61FE67F9200E46EC3 /* ui.png in Resources */ = {isa = PBXBuildFile; fileRef = 119EB1B51FE67F9200E46EC3 /* ui.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,9 @@
 		1165ED121FE30DEC00B8A66B /* log.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = log.png; sourceTree = "<group>"; };
 		1165ED1B1FE3133400B8A66B /* Controllers.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Controllers.cpp; sourceTree = "<group>"; };
 		1165ED1C1FE3133400B8A66B /* Controllers.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Controllers.hpp; sourceTree = "<group>"; };
+		119EB1B01FE67E1500E46EC3 /* User_Interface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = User_Interface.cpp; sourceTree = "<group>"; };
+		119EB1B11FE67E1500E46EC3 /* User_Interface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = User_Interface.hpp; sourceTree = "<group>"; };
+		119EB1B51FE67F9200E46EC3 /* ui.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ui.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +98,8 @@
 				1165ED001FE2E92D00B8A66B /* Game_State.hpp */,
 				1165ED021FE2F67900B8A66B /* Actor.cpp */,
 				1165ED031FE2F67900B8A66B /* Actor.hpp */,
+				119EB1B01FE67E1500E46EC3 /* User_Interface.cpp */,
+				119EB1B11FE67E1500E46EC3 /* User_Interface.hpp */,
 				1165ED1B1FE3133400B8A66B /* Controllers.cpp */,
 				1165ED1C1FE3133400B8A66B /* Controllers.hpp */,
 				114105B91FE3FE8A00CB464C /* Object.cpp */,
@@ -124,6 +131,7 @@
 		1165ECF61FE2E63600B8A66B /* img */ = {
 			isa = PBXGroup;
 			children = (
+				119EB1B51FE67F9200E46EC3 /* ui.png */,
 				1165ED0B1FE30DEC00B8A66B /* cave.png */,
 				1165ED101FE30DEC00B8A66B /* character.png */,
 				1165ED0F1FE30DEC00B8A66B /* font.png */,
@@ -216,6 +224,7 @@
 				1165ED081FE2FB3C00B8A66B /* background0.png in Resources */,
 				1165ED1A1FE30DEC00B8A66B /* log.png in Resources */,
 				1165ED161FE30DEC00B8A66B /* Overworld.png in Resources */,
+				119EB1B61FE67F9200E46EC3 /* ui.png in Resources */,
 				1165ED181FE30DEC00B8A66B /* character.png in Resources */,
 				1165ED191FE30DEC00B8A66B /* Inner.png in Resources */,
 				1165ED131FE30DEC00B8A66B /* cave.png in Resources */,
@@ -251,6 +260,7 @@
 				1165ECE71FE2E0FA00B8A66B /* main.cpp in Sources */,
 				1165ED1D1FE3133400B8A66B /* Controllers.cpp in Sources */,
 				114105BB1FE3FE8A00CB464C /* Object.cpp in Sources */,
+				119EB1B21FE67E1500E46EC3 /* User_Interface.cpp in Sources */,
 				1165ECE41FE2E0FA00B8A66B /* ResourcePath.mm in Sources */,
 				1165ED041FE2F67900B8A66B /* Actor.cpp in Sources */,
 			);
