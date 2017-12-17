@@ -12,15 +12,17 @@ class Object
 public:
     Object(sf::Vector2f);
     virtual ~Object() = default;
-    virtual bool canCollide() const = 0;
+    virtual bool canCollide() const {}
     virtual void update(sf::Time &) {}
     void draw(sf::RenderWindow &);
-    void handleCollision(std::unique_ptr<Player> &);
+    virtual void handleCollision(std::unique_ptr<Player> &);
     sf::FloatRect getSize() const;
     sf::Vector2f getPosition() const;
+    bool isDestroyed() const;
 protected:
     sf::Vector2f position{};
     sf::Sprite sprite{};
+    bool destroyed{};
 };
 
 class Outdoor_Object : public Object
@@ -42,12 +44,14 @@ protected:
     sf::Texture interior_pack{};
 };
 
-class Entrance : public Outdoor_Object
+class Dynamic_Object : public Object
 {
 public:
-    Entrance(sf::Vector2f);
-    ~Entrance() = default;
-    bool canCollide() const;
+    Dynamic_Object(sf::Vector2f);
+    ~Dynamic_Object() = default;
+protected:
+    sf::Texture texture_pack_1{};
+    sf::Texture texture_pack_2{};
 };
 
 class House : public Outdoor_Object
@@ -55,7 +59,7 @@ class House : public Outdoor_Object
 public:
     House(sf::Vector2f);
     ~House() = default;
-    bool canCollide() const;
+    bool canCollide() const override;
 };
 
 class Grave : public Outdoor_Object
@@ -63,7 +67,7 @@ class Grave : public Outdoor_Object
 public:
     Grave(sf::Vector2f);
     ~Grave() = default;
-    bool canCollide() const;
+    bool canCollide() const override;
 };
 
 class Living_Tree : public Outdoor_Object
@@ -71,8 +75,8 @@ class Living_Tree : public Outdoor_Object
 public:
     Living_Tree(sf::Vector2f);
     ~Living_Tree() = default;
-    bool canCollide() const;
-    void update(sf::Time &);
+    bool canCollide() const override;
+    void update(sf::Time &) override;
 private:
     sf::Clock animation{};
 };
@@ -82,8 +86,8 @@ class Fountain : public Outdoor_Object
 public:
     Fountain(sf::Vector2f);
     ~Fountain() = default;
-    bool canCollide() const;
-    void update(sf::Time &);
+    bool canCollide() const override;
+    void update(sf::Time &) override;
 private:
     sf::Clock animation{};
 };
@@ -93,6 +97,26 @@ class Door_Mat : public Interior_Object
 public:
     Door_Mat(sf::Vector2f);
     ~Door_Mat() = default;
-    bool canCollide() const;
+    bool canCollide() const override;
+};
+
+class Entrance : public Dynamic_Object
+{
+public:
+    Entrance(sf::Vector2f);
+    ~Entrance() = default;
+    bool canCollide() const override;
+};
+
+class Heart : public Dynamic_Object
+{
+public:
+    Heart(sf::Vector2f);
+    ~Heart() = default;
+    bool canCollide() const override;
+    void update(sf::Time &) override;
+    void handleCollision(std::unique_ptr<Player> &) override;
+private:
+    sf::Clock animation{};
 };
 #endif

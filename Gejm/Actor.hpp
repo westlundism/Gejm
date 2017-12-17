@@ -51,7 +51,7 @@ private:
     char movement_direction{};
     float moving_speed{};
     
-    int health{10};
+    int health{5};
     float energy{10.0};
 };
 

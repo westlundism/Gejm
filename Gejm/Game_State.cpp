@@ -81,8 +81,14 @@ void In_Game::update(sf::Time & delta)
 {
     player->update(delta);
     ui->update(delta, player->updateHealth(0), player->updateEnergy(0));
+    
     for(auto && object : objects)
         object->update(delta);
+    
+    for(int i{}; i < objects.size(); i++)
+        if(objects.at(i)->isDestroyed())
+            objects.erase(objects.begin() + i);
+    
     handleCollision();
 }
 
@@ -147,6 +153,9 @@ void In_Game::constructObjects()
     
     // Fountain
     objects.push_back(make_unique<Fountain>(sf::Vector2f(700, 320)));
+    
+    // Heart
+    objects.push_back(make_unique<Heart>(sf::Vector2f(600, 450)));
 }
 
 /*___ _  _   _  _  ___  _   _ ___ ___
@@ -182,6 +191,7 @@ void In_House::handleInput(sf::Event & event)
 void In_House::update(sf::Time & delta)
 {
     player->update(delta);
+    ui->update(delta, player->updateHealth(0), player->updateEnergy(0));
     for(auto && object : objects)
         object->update(delta);
     handleCollision();
@@ -191,6 +201,7 @@ void In_House::draw(sf::RenderWindow & window)
 {
     drawHouse(window);
     player->draw(window);
+    ui->draw(window);
 }
 
 void In_House::handleCollision()

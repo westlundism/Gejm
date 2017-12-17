@@ -24,40 +24,42 @@ void Object::draw(sf::RenderWindow & window)
 
 void Object::handleCollision(unique_ptr<Player> & player)
 {
-    sf::FloatRect outer_bounds = player->getSize();
+    sf::FloatRect player_bounds = player->getSize();
     sf::FloatRect object_bounds = sprite.getGlobalBounds();
     object_bounds.height -= 30;
     
     if(player->controllers->left)
     {
-        --outer_bounds.left;
-        if(outer_bounds.intersects(object_bounds))
+        --player_bounds.left;
+        --player_bounds.height;
+        if(player_bounds.intersects(object_bounds))
             player->position.x += player->moving_speed;
-        ++outer_bounds.left;
+        ++player_bounds.left;
+        ++player_bounds.height;
     }
     
     if(player->controllers->right)
     {
-        ++outer_bounds.width;
-        if(outer_bounds.intersects(object_bounds))
+        ++player_bounds.width;
+        if(player_bounds.intersects(object_bounds))
             player->position.x -= player->moving_speed;
-        --outer_bounds.width;
+        --player_bounds.width;
     }
     
     if(player->controllers->up)
     {
-        ++outer_bounds.height;
-        if(outer_bounds.intersects(object_bounds))
+        ++player_bounds.height;
+        if(player_bounds.intersects(object_bounds))
             player->position.y += player->moving_speed;
-        --outer_bounds.height;
+        --player_bounds.height;
     }
     
     if(player->controllers->down)
     {
-        --outer_bounds.top;
-        if(outer_bounds.intersects(object_bounds))
+        --player_bounds.top;
+        if(player_bounds.intersects(object_bounds))
             player->position.y -= player->moving_speed;
-        ++outer_bounds.top;
+        ++player_bounds.top;
     }
 }
 
@@ -69,6 +71,11 @@ sf::FloatRect Object::getSize() const
 sf::Vector2f Object::getPosition() const
 {
     return sprite.getPosition();
+}
+
+bool Object::isDestroyed() const
+{
+    return destroyed;
 }
 
 /*___  _   _ _____ ___   ___   ___  ___    ___  ___    _ ___ ___ _____
@@ -103,22 +110,21 @@ Object(position)
     sprite.setScale(2.0, 2.0);
 }
 
-/*___ _  _ _____ ___    _   _  _  ___ ___
- | __| \| |_   _| _ \  /_\ | \| |/ __| __|
- | _|| .` | | | |   / / _ \| .` | (__| _|
- |___|_|\_| |_| |_|_\/_/ \_\_|\_|\___|___|
+/*_____   ___  _   _   __  __ ___ ___    ___  ___    _ ___ ___ _____
+ |   \ \ / / \| | /_\ |  \/  |_ _/ __|  / _ \| _ )_ | | __/ __|_   _|
+ | |) \ V /| .` |/ _ \| |\/| || | (__  | (_) | _ \ || | _| (__  | |
+ |___/ |_| |_|\_/_/ \_\_|  |_|___\___|  \___/|___/\__/|___\___| |_|
  */
 
-Entrance::Entrance(sf::Vector2f position) :
-Outdoor_Object(position)
+Dynamic_Object::Dynamic_Object(sf::Vector2f position) :
+Object(position)
 {
-    sprite.setTexture(texture_pack_1);
-    sprite.setTextureRect(sf::IntRect(300, 300, 16, 5));
-}
-
-bool Entrance::canCollide() const
-{
-    return true;
+    if(!texture_pack_1.loadFromFile(resourcePath() + "Overworld.png"))
+        throw invalid_argument("Cannot load world sprites!");
+    if(!texture_pack_2.loadFromFile(resourcePath() + "objects.png"))
+        throw invalid_argument("Cannot load world sprites!");
+    
+    sprite.setScale(2.0, 2.0);
 }
 
 /*_  _  ___  _   _ ___ ___
@@ -257,4 +263,70 @@ Interior_Object(position)
 bool Door_Mat::canCollide() const
 {
     return false;
+}
+
+
+/*___ _  _ _____ ___    _   _  _  ___ ___
+ | __| \| |_   _| _ \  /_\ | \| |/ __| __|
+ | _|| .` | | | |   / / _ \| .` | (__| _|
+ |___|_|\_| |_| |_|_\/_/ \_\_|\_|\___|___|
+ */
+
+Entrance::Entrance(sf::Vector2f position) :
+Dynamic_Object(position)
+{
+    sprite.setTexture(texture_pack_1);
+    sprite.setTextureRect(sf::IntRect(300, 300, 16, 5));
+}
+
+bool Entrance::canCollide() const
+{
+    return true;
+}
+
+/*_  _ ___   _   ___ _____
+ | || | __| /_\ | _ \_   _|
+ | __ | _| / _ \|   / | |
+ |_||_|___/_/ \_\_|_\ |_|
+ */
+
+Heart::Heart(sf::Vector2f position) :
+Dynamic_Object(position)
+{
+    sprite.setTexture(texture_pack_2);
+    sprite.setTextureRect(sf::IntRect(2, 51, 11, 11));
+}
+
+bool Heart::canCollide() const
+{
+    return true;
+}
+
+void Heart::update(sf::Time & delta)
+{
+    if(animation.getElapsedTime() >= sf::seconds(0.8))
+        animation.restart();
+    
+    for(float i{}; i < 4; i++)
+    {
+        if(animation.getElapsedTime() >= sf::seconds(i/5))
+            sprite.setTextureRect(sf::IntRect(2+i*16, 51, 11, 11));
+    }
+}
+
+void Heart::handleCollision(std::unique_ptr<Player> & player)
+{
+    sf::FloatRect player_bounds = player->getSize();
+    sf::FloatRect object_bounds = sprite.getGlobalBounds();
+    player_bounds.top += 25;
+    player_bounds.height -= 35;
+    player_bounds.left += 10;
+    player_bounds.width -= 10;
+    
+    if(player_bounds.intersects(object_bounds) && player->updateHealth(0) < 10)
+    {
+        if(player->updateHealth(0) < 10)
+            player->updateHealth(1);
+        destroyed = true;
+    }
 }
