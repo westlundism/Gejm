@@ -175,9 +175,7 @@ Outdoor_Object(position)
 void Living_Tree::update(sf::Time & delta)
 {
     if(animation.getElapsedTime() >= sf::seconds(5))
-    {
         animation.restart();
-    }
     
     for(float i{}; i < 17.0; i++)
     {
@@ -211,6 +209,36 @@ void Living_Tree::update(sf::Time & delta)
 bool Living_Tree::canCollide() const
 {
     return true;
+}
+
+/*___ ___  _   _ _  _ _____ _   ___ _  _
+ | __/ _ \| | | | \| |_   _/_\ |_ _| \| |
+ | _| (_) | |_| | .` | | |/ _ \ | || .` |
+ |_| \___/ \___/|_|\_| |_/_/ \_\___|_|\_|
+ */
+
+Fountain::Fountain(sf::Vector2f position) :
+Outdoor_Object(position)
+{
+    sprite.setTexture(texture_pack_1);
+    sprite.setTextureRect(sf::IntRect(352, 144, 48, 47));
+}
+
+bool Fountain::canCollide() const
+{
+    return true;
+}
+
+void Fountain::update(sf::Time & delta)
+{
+    if(animation.getElapsedTime() >= sf::seconds(0.3))
+        animation.restart();
+    
+    for(float i{}; i < 3; i++)
+    {
+        if(animation.getElapsedTime() >= sf::seconds(i/10))
+            sprite.setTextureRect(sf::IntRect(352+i*48, 144, 48, 47));
+    }
 }
 
 /*___   ___   ___  ___   __  __   _ _____

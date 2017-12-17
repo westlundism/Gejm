@@ -77,6 +77,17 @@ private:
     sf::Clock animation{};
 };
 
+class Fountain : public Outdoor_Object
+{
+public:
+    Fountain(sf::Vector2f);
+    ~Fountain() = default;
+    bool canCollide() const;
+    void update(sf::Time &);
+private:
+    sf::Clock animation{};
+};
+
 class Door_Mat : public Interior_Object
 {
 public:

@@ -144,6 +144,9 @@ void In_Game::constructObjects()
     
     // Living Tree
     objects.push_back(make_unique<Living_Tree>(sf::Vector2f(700, 520)));
+    
+    // Fountain
+    objects.push_back(make_unique<Fountain>(sf::Vector2f(700, 320)));
 }
 
 /*___ _  _   _  _  ___  _   _ ___ ___
