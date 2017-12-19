@@ -24,7 +24,7 @@ void Game::run()
     sf::Clock clock;
     auto delta = clock.restart();
     
-    while (window.isOpen())
+    while (!quit)
     {
         sf::Event event;
         
@@ -33,7 +33,7 @@ void Game::run()
             switch (event.type)
             {
                 case sf::Event::Closed:
-                    window.close();
+                    quit = true;
                     break;
                 default:
                     states.at(active_state)->handleInput(event);
@@ -65,4 +65,9 @@ void Game::changeState(int new_state)
 int Game::getState() const
 {
     return active_state;
+}
+
+void Game::quitGame()
+{
+    quit = true;
 }

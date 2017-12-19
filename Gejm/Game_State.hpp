@@ -5,6 +5,7 @@
 #include "Actor.hpp"
 #include "Object.hpp"
 #include "User_Interface.hpp"
+#include "Button.hpp"
 
 class Game;
 class Player;
@@ -41,6 +42,7 @@ private:
     sf::Sprite background_sprite{};
     sf::Texture background{};
     sf::Text title{};
+    std::vector<std::unique_ptr<Button>> buttons{};
 };
 
 class In_Game : public Game_State

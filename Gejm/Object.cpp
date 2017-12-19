@@ -241,10 +241,8 @@ void Fountain::update(sf::Time & delta)
         animation.restart();
     
     for(float i{}; i < 3; i++)
-    {
         if(animation.getElapsedTime() >= sf::seconds(i/10))
             sprite.setTextureRect(sf::IntRect(352+i*48, 144, 48, 47));
-    }
 }
 
 /*___   ___   ___  ___   __  __   _ _____
@@ -308,10 +306,8 @@ void Heart::update(sf::Time & delta)
         animation.restart();
     
     for(float i{}; i < 4; i++)
-    {
         if(animation.getElapsedTime() >= sf::seconds(i/5))
             sprite.setTextureRect(sf::IntRect(2+i*16, 51, 11, 11));
-    }
 }
 
 void Heart::handleCollision(std::unique_ptr<Player> & player)

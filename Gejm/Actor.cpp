@@ -111,6 +111,7 @@ void Player::update(sf::Time & delta)
     }
     else
         moving_speed = 250.0f * (delta.asMicroseconds() / 2000000.0f);
+    
     position += controllers->direction() * moving_speed;
     sprite.setPosition(position);
     

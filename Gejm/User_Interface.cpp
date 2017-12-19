@@ -30,13 +30,11 @@ void User_Interface::draw(sf::RenderWindow & window)
     window.draw(hud);
     
     for(int j{}; j < 3; j++)
-    {
         for(int i{}; i < 10; i++)
         {
             bar_background.setPosition(168+i*16, 8+j*40);
             window.draw(bar_background);
         }
-    }
     
     window.draw(bar_endings);
     

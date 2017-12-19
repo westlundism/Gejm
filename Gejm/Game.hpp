@@ -23,13 +23,15 @@ public:
     ~Game() = default;
     void run();
     void restart();
+    void quitGame();
     void changeState(int);
     int getState() const;
 private:
     std::vector<std::unique_ptr<Game_State>> states{};
     std::unique_ptr<Player> player;
     std::unique_ptr<User_Interface> ui;
-    int active_state{1};
+    int active_state{};
+    bool quit{};
 };
 
 #endif

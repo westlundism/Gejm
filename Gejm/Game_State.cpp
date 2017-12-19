@@ -29,22 +29,29 @@ Game_State(game, player, ui)
     title.setOrigin(title.getGlobalBounds().width/2, title.getGlobalBounds().height/2);
     title.setPosition(window_width/2, 200);
     title.setFillColor(sf::Color::Black);
+    
+    buttons.push_back(make_unique<Start_Button>());
+    buttons.push_back(make_unique<Quit_Button>());
 }
 
-void Main_Menu::handleInput(sf::Event &)
+void Main_Menu::handleInput(sf::Event & event)
 {
-    
+    for(auto && button : buttons)
+        button->handle_input(event, game);
 }
 
 void Main_Menu::update(sf::Time &)
 {
-    
+
 }
 
 void Main_Menu::draw(sf::RenderWindow & window)
 {
     window.draw(background_sprite);
     window.draw(title);
+    
+    for(auto && button : buttons)
+        button->draw(window);
 }
 
 /*___ _  _    ___   _   __  __ ___
@@ -125,13 +132,11 @@ void In_Game::drawWorld(sf::RenderWindow & window)
     background_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
     
     for(int columns{}; columns < window_height/32; columns++)
-    {
         for(int rows{}; rows < window_width/32; rows++)
         {
             background_sprite.setPosition(32*rows, 32*columns);
             window.draw(background_sprite);
         }
-    }
 
     for(auto && object : objects)
         object->draw(window);
@@ -229,14 +234,12 @@ void In_House::drawHouse(sf::RenderWindow & window)
     background_sprite.setTextureRect(sf::IntRect(0, 16, 16, 16));
     
     for(int columns{}; columns < window_height/32/3; columns++)
-    {
         for(int rows{}; rows < window_width/32/3; rows++)
         {
             background_sprite.setPosition(window_width/3  + 32*rows,
                                           window_height/3 + 32*columns);
             window.draw(background_sprite);
         }
-    }
     
     for(auto && object : objects)
         object->draw(window);
