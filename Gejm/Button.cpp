@@ -13,7 +13,7 @@ Text_Button::Text_Button()
 
 void Text_Button::draw(sf::RenderWindow & window)
 {
-    window.draw(button_text);
+    window.draw(buttonText);
 }
 
 bool Text_Button::click(sf::Event & event)
@@ -22,7 +22,7 @@ bool Text_Button::click(sf::Event & event)
     {
         float x = event.mouseButton.x;
         float y = event.mouseButton.y;
-        if (button_text.getGlobalBounds().contains(x, y))
+        if (buttonText.getGlobalBounds().contains(x, y))
             return true;
     }
     return false;
@@ -34,21 +34,21 @@ void Text_Button::hover(sf::Event & event)
     {
         float x = event.mouseMove.x;
         float y = event.mouseMove.y;
-        if (button_text.getGlobalBounds().contains(x, y))
-            button_text.setFillColor(sf::Color::Green);
+        if (buttonText.getGlobalBounds().contains(x, y))
+            buttonText.setFillColor(sf::Color::Green);
         else
-            button_text.setFillColor(sf::Color::Black);
+            buttonText.setFillColor(sf::Color::Black);
     }
 }
 
 Start_Button::Start_Button()
 {
-    button_text = sf::Text("START", font, 50);
-    button_text.setFillColor(sf::Color::Black);
-    button_text.setPosition(window_width/2 - button_text.getGlobalBounds().width / 2, window_height/2);
+    buttonText = sf::Text("START", font, 50);
+    buttonText.setFillColor(sf::Color::Black);
+    buttonText.setPosition(windowWidth/2 - buttonText.getGlobalBounds().width / 2, windowHeight/2);
 }
 
-void Start_Button::handle_input(sf::Event & event, Game & game)
+void Start_Button::handleInput(sf::Event & event, Game & game)
 {
     hover(event);
     
@@ -58,12 +58,12 @@ void Start_Button::handle_input(sf::Event & event, Game & game)
 
 Quit_Button::Quit_Button()
 {
-    button_text = sf::Text("QUIT", font, 50);
-    button_text.setFillColor(sf::Color::Black);
-    button_text.setPosition(window_width/2 - button_text.getGlobalBounds().width / 2, window_height/2 + 100);
+    buttonText = sf::Text("QUIT", font, 50);
+    buttonText.setFillColor(sf::Color::Black);
+    buttonText.setPosition(windowWidth/2 - buttonText.getGlobalBounds().width / 2, windowHeight/2 + 100);
 }
 
-void Quit_Button::handle_input(sf::Event & event, Game & game)
+void Quit_Button::handleInput(sf::Event & event, Game & game)
 {
     hover(event);
     

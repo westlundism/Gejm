@@ -16,7 +16,7 @@ Game::Game()
 
 void Game::run()
 {
-    sf::RenderWindow window(sf::VideoMode(window_width, window_height), "Gejm");
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Gejm");
     
     window.setVerticalSyncEnabled(true);
     window.setKeyRepeatEnabled(false);
@@ -36,17 +36,20 @@ void Game::run()
                     quit = true;
                     break;
                 default:
-                    states.at(active_state)->handleInput(event);
+                    states.at(activeState)->handleInput(event);
                     break;
             }
         }
         
         window.clear();
-        states.at(active_state)->update(delta);
-        delta = clock.restart();
-        states.at(active_state)->draw(window);
+        states.at(activeState)->update(delta);
+        states.at(activeState)->draw(window);
         window.display();
+        
+        delta = clock.restart();
     }
+    
+    window.close();
 }
 
 void Game::restart()
@@ -57,14 +60,14 @@ void Game::restart()
     states.at(1) = make_unique<In_Game>(*this, player, ui);
 }
 
-void Game::changeState(int new_state)
+void Game::changeState(int newState)
 {
-    active_state = new_state;
+    activeState = newState;
 }
 
 int Game::getState() const
 {
-    return active_state;
+    return activeState;
 }
 
 void Game::quitGame()

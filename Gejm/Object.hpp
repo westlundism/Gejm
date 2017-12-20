@@ -31,8 +31,8 @@ public:
     Outdoor_Object(sf::Vector2f);
     ~Outdoor_Object() = default;
 protected:
-    sf::Texture texture_pack_1{};
-    sf::Texture texture_pack_2{};
+    sf::Texture worldPack{};
+    sf::Texture objectPack{};
 };
 
 class Interior_Object : public Object
@@ -41,7 +41,7 @@ public:
     Interior_Object(sf::Vector2f);
     ~Interior_Object() = default;
 protected:
-    sf::Texture interior_pack{};
+    sf::Texture interiorPack{};
 };
 
 class Dynamic_Object : public Object
@@ -50,8 +50,8 @@ public:
     Dynamic_Object(sf::Vector2f);
     ~Dynamic_Object() = default;
 protected:
-    sf::Texture texture_pack_1{};
-    sf::Texture texture_pack_2{};
+    sf::Texture worldPack{};
+    sf::Texture objectPack{};
 };
 
 class House : public Outdoor_Object
@@ -78,7 +78,7 @@ public:
     bool canCollide() const override;
     void update(sf::Time &) override;
 private:
-    sf::Clock animation{};
+    sf::Clock animationClock{};
 };
 
 class Fountain : public Outdoor_Object
@@ -89,7 +89,7 @@ public:
     bool canCollide() const override;
     void update(sf::Time &) override;
 private:
-    sf::Clock animation{};
+    sf::Clock animationClock{};
 };
 
 class Door_Mat : public Interior_Object
@@ -117,6 +117,6 @@ public:
     void update(sf::Time &) override;
     void handleCollision(std::unique_ptr<Player> &) override;
 private:
-    sf::Clock animation{};
+    sf::Clock animationClock{};
 };
 #endif

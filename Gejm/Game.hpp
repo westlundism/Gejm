@@ -9,8 +9,8 @@
 
 namespace constants
 {
-    const int window_width = 1280;
-    const int window_height = 960;
+    const int windowWidth = 1280;
+    const int windowHeight = 960;
 }
 
 class Game_State;
@@ -30,7 +30,7 @@ private:
     std::vector<std::unique_ptr<Game_State>> states{};
     std::unique_ptr<Player> player;
     std::unique_ptr<User_Interface> ui;
-    int active_state{};
+    int activeState{};
     bool quit{};
 };
 

@@ -24,42 +24,42 @@ void Object::draw(sf::RenderWindow & window)
 
 void Object::handleCollision(unique_ptr<Player> & player)
 {
-    sf::FloatRect player_bounds = player->getSize();
-    sf::FloatRect object_bounds = sprite.getGlobalBounds();
-    object_bounds.height -= 30;
+    sf::FloatRect playerBounds = player->getSize();
+    sf::FloatRect objectBounds = sprite.getGlobalBounds();
+    objectBounds.height -= 30;
     
     if(player->controllers->left)
     {
-        --player_bounds.left;
-        --player_bounds.height;
-        if(player_bounds.intersects(object_bounds))
-            player->position.x += player->moving_speed;
-        ++player_bounds.left;
-        ++player_bounds.height;
+        --playerBounds.left;
+        --playerBounds.height;
+        if(playerBounds.intersects(objectBounds))
+            player->position.x += player->movingSpeed;
+        ++playerBounds.left;
+        ++playerBounds.height;
     }
     
     if(player->controllers->right)
     {
-        ++player_bounds.width;
-        if(player_bounds.intersects(object_bounds))
-            player->position.x -= player->moving_speed;
-        --player_bounds.width;
+        ++playerBounds.width;
+        if(playerBounds.intersects(objectBounds))
+            player->position.x -= player->movingSpeed;
+        --playerBounds.width;
     }
     
     if(player->controllers->up)
     {
-        ++player_bounds.height;
-        if(player_bounds.intersects(object_bounds))
-            player->position.y += player->moving_speed;
-        --player_bounds.height;
+        ++playerBounds.height;
+        if(playerBounds.intersects(objectBounds))
+            player->position.y += player->movingSpeed;
+        --playerBounds.height;
     }
     
     if(player->controllers->down)
     {
-        --player_bounds.top;
-        if(player_bounds.intersects(object_bounds))
-            player->position.y -= player->moving_speed;
-        ++player_bounds.top;
+        --playerBounds.top;
+        if(playerBounds.intersects(objectBounds))
+            player->position.y -= player->movingSpeed;
+        ++playerBounds.top;
     }
 }
 
@@ -87,9 +87,9 @@ bool Object::isDestroyed() const
 Outdoor_Object::Outdoor_Object(sf::Vector2f position) :
 Object(position)
 {
-    if(!texture_pack_1.loadFromFile(resourcePath() + "Overworld.png"))
+    if(!worldPack.loadFromFile(resourcePath() + "Overworld.png"))
         throw invalid_argument("Cannot load world sprites!");
-    if(!texture_pack_2.loadFromFile(resourcePath() + "objects.png"))
+    if(!objectPack.loadFromFile(resourcePath() + "objects.png"))
         throw invalid_argument("Cannot load world sprites!");
 
     sprite.setScale(2.0, 2.0);
@@ -104,7 +104,7 @@ Object(position)
 Interior_Object::Interior_Object(sf::Vector2f position) :
 Object(position)
 {
-    if(!interior_pack.loadFromFile(resourcePath() + "Inner.png"))
+    if(!interiorPack.loadFromFile(resourcePath() + "Inner.png"))
         throw invalid_argument("Cannot load world sprites!");
     
     sprite.setScale(2.0, 2.0);
@@ -119,9 +119,9 @@ Object(position)
 Dynamic_Object::Dynamic_Object(sf::Vector2f position) :
 Object(position)
 {
-    if(!texture_pack_1.loadFromFile(resourcePath() + "Overworld.png"))
+    if(!worldPack.loadFromFile(resourcePath() + "Overworld.png"))
         throw invalid_argument("Cannot load world sprites!");
-    if(!texture_pack_2.loadFromFile(resourcePath() + "objects.png"))
+    if(!objectPack.loadFromFile(resourcePath() + "objects.png"))
         throw invalid_argument("Cannot load world sprites!");
     
     sprite.setScale(2.0, 2.0);
@@ -136,7 +136,7 @@ Object(position)
 House::House(sf::Vector2f position) :
 Outdoor_Object(position)
 {
-    sprite.setTexture(texture_pack_1);
+    sprite.setTexture(worldPack);
     sprite.setTextureRect(sf::IntRect(99, 0, 74, 80));
 }
 
@@ -154,7 +154,7 @@ bool House::canCollide() const
 Grave::Grave(sf::Vector2f position) :
 Outdoor_Object(position)
 {
-    sprite.setTexture(texture_pack_1);
+    sprite.setTexture(worldPack);
     sprite.setTextureRect(sf::IntRect(567, 83, 20, 24));
 }
 
@@ -172,42 +172,42 @@ bool Grave::canCollide() const
 Living_Tree::Living_Tree(sf::Vector2f position) :
 Outdoor_Object(position)
 {
-    sprite.setTexture(texture_pack_2);
+    sprite.setTexture(objectPack);
     sprite.setTextureRect(sf::IntRect(1, 165, 31, 26));
     
-    animation.restart();
+    animationClock.restart();
 }
 
 void Living_Tree::update(sf::Time & delta)
 {
-    if(animation.getElapsedTime() >= sf::seconds(5))
-        animation.restart();
+    if(animationClock.getElapsedTime() >= sf::seconds(5))
+        animationClock.restart();
     
     for(float i{}; i < 17.0; i++)
     {
-        if(animation.getElapsedTime() >= sf::seconds(i/10) &&
-           animation.getElapsedTime() <= sf::seconds(0.8) )
+        if(animationClock.getElapsedTime() >= sf::seconds(i/10) &&
+           animationClock.getElapsedTime() <= sf::seconds(0.8) )
             sprite.setTextureRect(sf::IntRect((i*32), 160, 32, 31));
         
-        if(animation.getElapsedTime() >= sf::seconds(i/10) &&
-           animation.getElapsedTime() >= sf::seconds(0.8) )
+        if(animationClock.getElapsedTime() >= sf::seconds(i/10) &&
+           animationClock.getElapsedTime() >= sf::seconds(0.8) )
             sprite.setTextureRect(sf::IntRect((i*32 - 224), 192, 32, 31));
         
-        if(animation.getElapsedTime() >= sf::seconds(1.6))
+        if(animationClock.getElapsedTime() >= sf::seconds(1.6))
             sprite.setTextureRect(sf::IntRect(256, 192, 32, 31));
     }
     
     for(float i{}; i < 17; i++)
     {
-        if(animation.getElapsedTime() >= sf::seconds(2.0 + i/10) &&
-           animation.getElapsedTime() <= sf::seconds(2.8) )
+        if(animationClock.getElapsedTime() >= sf::seconds(2.0 + i/10) &&
+           animationClock.getElapsedTime() <= sf::seconds(2.8) )
             sprite.setTextureRect(sf::IntRect((256-i*32), 192, 32, 31));
         
-        if(animation.getElapsedTime() >= sf::seconds(2.0 + i/10) &&
-           animation.getElapsedTime() >= sf::seconds(2.8) )
+        if(animationClock.getElapsedTime() >= sf::seconds(2.0 + i/10) &&
+           animationClock.getElapsedTime() >= sf::seconds(2.8) )
             sprite.setTextureRect(sf::IntRect((480-i*32), 160, 32, 31));
         
-        if(animation.getElapsedTime() >= sf::seconds(3.6))
+        if(animationClock.getElapsedTime() >= sf::seconds(3.6))
             sprite.setTextureRect(sf::IntRect(0, 160, 32, 31));
     }
 }
@@ -226,7 +226,7 @@ bool Living_Tree::canCollide() const
 Fountain::Fountain(sf::Vector2f position) :
 Outdoor_Object(position)
 {
-    sprite.setTexture(texture_pack_1);
+    sprite.setTexture(worldPack);
     sprite.setTextureRect(sf::IntRect(352, 144, 48, 47));
 }
 
@@ -237,11 +237,11 @@ bool Fountain::canCollide() const
 
 void Fountain::update(sf::Time & delta)
 {
-    if(animation.getElapsedTime() >= sf::seconds(0.3))
-        animation.restart();
+    if(animationClock.getElapsedTime() >= sf::seconds(0.3))
+        animationClock.restart();
     
     for(float i{}; i < 3; i++)
-        if(animation.getElapsedTime() >= sf::seconds(i/10))
+        if(animationClock.getElapsedTime() >= sf::seconds(i/10))
             sprite.setTextureRect(sf::IntRect(352+i*48, 144, 48, 47));
 }
 
@@ -254,7 +254,7 @@ void Fountain::update(sf::Time & delta)
 Door_Mat::Door_Mat(sf::Vector2f position) :
 Interior_Object(position)
 {
-    sprite.setTexture(interior_pack);
+    sprite.setTexture(interiorPack);
     sprite.setTextureRect(sf::IntRect(96, 0, 16, 16));
 }
 
@@ -273,7 +273,7 @@ bool Door_Mat::canCollide() const
 Entrance::Entrance(sf::Vector2f position) :
 Dynamic_Object(position)
 {
-    sprite.setTexture(texture_pack_1);
+    sprite.setTexture(worldPack);
     sprite.setTextureRect(sf::IntRect(300, 300, 16, 5));
 }
 
@@ -291,7 +291,7 @@ bool Entrance::canCollide() const
 Heart::Heart(sf::Vector2f position) :
 Dynamic_Object(position)
 {
-    sprite.setTexture(texture_pack_2);
+    sprite.setTexture(objectPack);
     sprite.setTextureRect(sf::IntRect(2, 51, 11, 11));
 }
 
@@ -302,24 +302,24 @@ bool Heart::canCollide() const
 
 void Heart::update(sf::Time & delta)
 {
-    if(animation.getElapsedTime() >= sf::seconds(0.8))
-        animation.restart();
+    if(animationClock.getElapsedTime() >= sf::seconds(0.8))
+        animationClock.restart();
     
     for(float i{}; i < 4; i++)
-        if(animation.getElapsedTime() >= sf::seconds(i/5))
+        if(animationClock.getElapsedTime() >= sf::seconds(i/5))
             sprite.setTextureRect(sf::IntRect(2+i*16, 51, 11, 11));
 }
 
 void Heart::handleCollision(std::unique_ptr<Player> & player)
 {
-    sf::FloatRect player_bounds = player->getSize();
-    sf::FloatRect object_bounds = sprite.getGlobalBounds();
-    player_bounds.top += 25;
-    player_bounds.height -= 35;
-    player_bounds.left += 10;
-    player_bounds.width -= 10;
+    sf::FloatRect playerBounds = player->getSize();
+    sf::FloatRect objectBounds = sprite.getGlobalBounds();
+    playerBounds.top += 25;
+    playerBounds.height -= 35;
+    playerBounds.left += 10;
+    playerBounds.width -= 10;
     
-    if(player_bounds.intersects(object_bounds) && player->updateHealth(0) < 10)
+    if(playerBounds.intersects(objectBounds) && player->updateHealth(0) < 10)
     {
         if(player->updateHealth(0) < 10)
             player->updateHealth(1);

@@ -39,7 +39,7 @@ public:
     void update(sf::Time &);
     void draw(sf::RenderWindow &);
 private:
-    sf::Sprite background_sprite{};
+    sf::Sprite backgroundSprite{};
     sf::Texture background{};
     sf::Text title{};
     std::vector<std::unique_ptr<Button>> buttons{};
@@ -60,7 +60,7 @@ private:
     void constructObjects();
 
     std::vector<std::unique_ptr<Object>> objects{};
-    sf::Sprite background_sprite{};
+    sf::Sprite backgroundSprite{};
     sf::Texture world{};
     sf::Texture other{};
 };
@@ -80,7 +80,7 @@ private:
     void constructObjects();
     
     std::vector<std::unique_ptr<Object>> objects{};
-    sf::Sprite background_sprite{};
+    sf::Sprite backgroundSprite{};
     sf::Texture interior{};
     sf::Texture other{};
 };

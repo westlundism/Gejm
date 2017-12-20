@@ -44,12 +44,12 @@ private:
     
     std::unique_ptr<Controllers> controllers{};
     sf::Texture player{};
-    sf::Clock slash_clock{};
-    sf::Clock moving_clock{};
-    sf::Clock energy_clock{};
+    sf::Clock slashClock{};
+    sf::Clock movingClock{};
+    sf::Clock energyClock{};
     bool slash{};
-    char movement_direction{};
-    float moving_speed{};
+    char movementDirection{};
+    float movingSpeed{};
     
     int health{5};
     float energy{10.0};

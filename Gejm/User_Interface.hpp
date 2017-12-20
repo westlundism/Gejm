@@ -14,11 +14,11 @@ private:
     void drawStats(sf::RenderWindow &);
     
     sf::Sprite hud{};
-    sf::Sprite health_bar{};
-    sf::Sprite energy_bar{};
-    sf::Sprite bar_background{};
-    sf::Sprite bar_endings{};
-    sf::Texture texture_pack{};
+    sf::Sprite healthBar{};
+    sf::Sprite energyBar{};
+    sf::Sprite barBackground{};
+    sf::Sprite barEndings{};
+    sf::Texture texturePack{};
     int health{};
     float energy{};
 };

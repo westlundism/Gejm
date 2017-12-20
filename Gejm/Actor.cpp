@@ -11,9 +11,9 @@ void Actor::draw(sf::RenderWindow & window)
     window.draw(sprite);
 }
 
-void Actor::setPosition(sf::Vector2f pos)
+void Actor::setPosition(sf::Vector2f newPosition)
 {
-    position = pos;
+    position = newPosition;
 }
 
 sf::Vector2f Actor::getPosition() const
@@ -41,15 +41,15 @@ controllers(make_unique<Controllers>())
     sprite.setTexture(player);
     sprite.setTextureRect(sf::IntRect(0, 69, 16, 22));
     sprite.setScale(2.0, 2.0);
-    sprite.setPosition(window_width/2 - 16, window_height/2);
+    sprite.setPosition(windowWidth/2 - 16, windowHeight/2);
     
     if(game.getState() == 1)
-        sprite.setPosition(window_width/2 - 16, window_height/2);
+        sprite.setPosition(windowWidth/2 - 16, windowHeight/2);
     else if(game.getState() == 2)
-        sprite.setPosition(window_width/2 - 16, window_height/2 + 100);
+        sprite.setPosition(windowWidth/2 - 16, windowHeight/2 + 100);
     
-    slash_clock.restart();
-    moving_clock.restart();
+    slashClock.restart();
+    movingClock.restart();
 }
 
 void Player::handleInput(sf::Event & event)
@@ -74,45 +74,45 @@ void Player::handleCollision(Game & game)
 {
     if(game.getState() == 2)
     {
-        if(position.x < window_width/3)
-            position.x = window_width/3;
-        if(position.x > window_width*2/3 - 32)
-            position.x = window_width*2/3 - 32;
-        if(position.y < window_height/3)
-            position.y = window_height/3;
-        if(position.y > window_height*2/3 - 32)
-            position.y = window_height*2/3 - 32;
+        if(position.x < windowWidth/3)
+            position.x = windowWidth/3;
+        if(position.x > windowWidth*2/3 - 32)
+            position.x = windowWidth*2/3 - 32;
+        if(position.y < windowHeight/3)
+            position.y = windowHeight/3;
+        if(position.y > windowHeight*2/3 - 32)
+            position.y = windowHeight*2/3 - 32;
     }
     else
     {
         if(position.x < 0)
             position.x = 0;
-        if(position.x > window_width - 32)
-            position.x = window_width - 32;
+        if(position.x > windowWidth - 32)
+            position.x = windowWidth - 32;
         if(position.y < 0)
             position.y = 0;
-        if(position.y > window_height - 32)
-            position.y = window_height - 32;
+        if(position.y > windowHeight - 32)
+            position.y = windowHeight - 32;
     }
 }
 
 void Player::update(sf::Time & delta)
 {
-    if(energy_clock.getElapsedTime() >= sf::seconds(5.0) && energy < 10.0)
+    if(energyClock.getElapsedTime() >= sf::seconds(5.0) && energy < 10.0)
     {
         energy += 1.0;
-        energy_clock.restart();
+        energyClock.restart();
     }
     
     if(controllers->shift && energy > 0)
     {
-        moving_speed = 250.0f * (delta.asMicroseconds() / 1000000.0f);
+        movingSpeed = 250.0f * (delta.asMicroseconds() / 1000000.0f);
         energy -= 0.1;
     }
     else
-        moving_speed = 250.0f * (delta.asMicroseconds() / 2000000.0f);
+        movingSpeed = 250.0f * (delta.asMicroseconds() / 2000000.0f);
     
-    position += controllers->direction() * moving_speed;
+    position += controllers->direction() * movingSpeed;
     sprite.setPosition(position);
     
     animate();
@@ -121,96 +121,96 @@ void Player::update(sf::Time & delta)
         handleSlashing();
 }
 
-int Player::updateHealth(int health_update)
+int Player::updateHealth(int healthUpdate)
 {
-    if(health_update < 0 && health > 0)
-        health += health_update;
-    else if(health_update > 0 && health < 10)
-        health += health_update;
+    if(healthUpdate < 0 && health > 0)
+        health += healthUpdate;
+    else if(healthUpdate > 0 && health < 10)
+        health += healthUpdate;
     return health;
 }
 
-float Player::updateEnergy(float energy_update)
+float Player::updateEnergy(float energyUpdate)
 {
-    if(energy_update < 0 && energy > 0)
-        energy += energy_update;
-    else if(energy_update > 0 && energy < 10.0)
-        energy += energy_update;
+    if(energyUpdate < 0 && energy > 0)
+        energy += energyUpdate;
+    else if(energyUpdate > 0 && energy < 10.0)
+        energy += energyUpdate;
     return energy;
 }
 
 void Player::handleSlashing()
 {
-    if(movement_direction == 'l')
+    if(movementDirection == 'l')
     {
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
-            slash_clock.restart();
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.6))
+            slashClock.restart();
+        if(slashClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(7,   230, 16, 25));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(40,  230, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(72,  230, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 230, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.5))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.5))
         {
             sprite.setTextureRect(sf::IntRect(0, 102, 16, 22));
             slash = false;
         }
     }
     
-    if(movement_direction == 'r')
+    if(movementDirection == 'r')
     {
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
-            slash_clock.restart();
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.6))
+            slashClock.restart();
+        if(slashClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(7,   198, 16, 25));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(40,  198, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(72,  198, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 198, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.5))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.5))
         {
             sprite.setTextureRect(sf::IntRect(0, 38, 16, 22));
             slash = false;
         }
     }
 
-    if(movement_direction == 'u')
+    if(movementDirection == 'u')
     {
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
-            slash_clock.restart();
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.6))
+            slashClock.restart();
+        if(slashClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(7,   166, 16, 25));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(40,  166, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(72,  166, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 166, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.5))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.5))
         {
             sprite.setTextureRect(sf::IntRect(0, 69, 16, 22));
             slash = false;
         }
     }
     
-    if(movement_direction == 'd')
+    if(movementDirection == 'd')
     {
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.6))
-            slash_clock.restart();
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.1))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.6))
+            slashClock.restart();
+        if(slashClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(7,   134, 16, 25));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(40,  134, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(72,  134, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.4))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.4))
             sprite.setTextureRect(sf::IntRect(104, 134, 16, 26));
-        if(slash_clock.getElapsedTime() >= sf::seconds(0.5))
+        if(slashClock.getElapsedTime() >= sf::seconds(0.5))
         {
             sprite.setTextureRect(sf::IntRect(0, 6, 16, 22));
             slash = false;
@@ -222,53 +222,53 @@ void Player::animate()
 {
     if(controllers->direction() == sf::Vector2f(-1.0, 0))
     {
-        movement_direction = 'l';
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.4))
-            moving_clock.restart();
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.1))
+        movementDirection = 'l';
+        if(movingClock.getElapsedTime() >= sf::seconds(0.4))
+            movingClock.restart();
+        if(movingClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(17, 102, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(33, 102, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(49, 102, 16, 22));
     }
     
     if(controllers->direction() == sf::Vector2f(1.0, 0))
     {
-        movement_direction = 'r';
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.4))
-            moving_clock.restart();
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.1))
+        movementDirection = 'r';
+        if(movingClock.getElapsedTime() >= sf::seconds(0.4))
+            movingClock.restart();
+        if(movingClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(18, 38, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(34, 38, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(50, 38, 16, 22));
     }
     
     if(controllers->direction() == sf::Vector2f(0, -1.0))
     {
-        movement_direction = 'u';
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.4))
-            moving_clock.restart();
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.1))
+        movementDirection = 'u';
+        if(movingClock.getElapsedTime() >= sf::seconds(0.4))
+            movingClock.restart();
+        if(movingClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(16, 69, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(32, 69, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(49, 69, 16, 22));
     }
     
     if(controllers->direction() == sf::Vector2f(0, 1.0))
     {
-        movement_direction = 'd';
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.4))
-            moving_clock.restart();
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.1))
+        movementDirection = 'd';
+        if(movingClock.getElapsedTime() >= sf::seconds(0.4))
+            movingClock.restart();
+        if(movingClock.getElapsedTime() >= sf::seconds(0.1))
             sprite.setTextureRect(sf::IntRect(17, 6, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.2))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.2))
             sprite.setTextureRect(sf::IntRect(33, 6, 16, 22));
-        if(moving_clock.getElapsedTime() >= sf::seconds(0.3))
+        if(movingClock.getElapsedTime() >= sf::seconds(0.3))
             sprite.setTextureRect(sf::IntRect(49, 6, 16, 22));
     }
     

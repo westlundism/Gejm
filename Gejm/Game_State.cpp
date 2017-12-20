@@ -20,14 +20,14 @@ Game_State(game, player, ui)
 {
     if(!background.loadFromFile(resourcePath() + "background0.png"))
         throw invalid_argument("Background not loaded!");
-    background_sprite.setTexture(background);
+    backgroundSprite.setTexture(background);
     
     if(!font.loadFromFile(resourcePath() + "Powerful.ttf"))
         throw invalid_argument("Font not loaded!");
     
     title = sf::Text("GEJM", font, 150);
     title.setOrigin(title.getGlobalBounds().width/2, title.getGlobalBounds().height/2);
-    title.setPosition(window_width/2, 200);
+    title.setPosition(windowWidth/2, 200);
     title.setFillColor(sf::Color::Black);
     
     buttons.push_back(make_unique<Start_Button>());
@@ -37,7 +37,7 @@ Game_State(game, player, ui)
 void Main_Menu::handleInput(sf::Event & event)
 {
     for(auto && button : buttons)
-        button->handle_input(event, game);
+        button->handleInput(event, game);
 }
 
 void Main_Menu::update(sf::Time &)
@@ -47,7 +47,7 @@ void Main_Menu::update(sf::Time &)
 
 void Main_Menu::draw(sf::RenderWindow & window)
 {
-    window.draw(background_sprite);
+    window.draw(backgroundSprite);
     window.draw(title);
     
     for(auto && button : buttons)
@@ -70,11 +70,11 @@ Game_State(game, player, ui)
     if(!other.loadFromFile(resourcePath() + "objects.png"))
         throw invalid_argument("World texture not loaded!");
 
-    background_sprite.setTexture(world);
-    background_sprite.setScale(2.0, 2.0);
+    backgroundSprite.setTexture(world);
+    backgroundSprite.setScale(2.0, 2.0);
     
-    player->setPosition(sf::Vector2f(window_width/2 - 16,
-                                     window_height/2));
+    player->setPosition(sf::Vector2f(windowWidth/2 - 16,
+                                     windowHeight/2));
     
     constructObjects();
 }
@@ -120,8 +120,8 @@ void In_Game::handleCollision()
         if(temp != nullptr && player->getSize().intersects(object->getSize()))
         {
             game.changeState(2);
-            player->setPosition(sf::Vector2f(window_width/2  - 16,
-                                             window_height/2 + 100));
+            player->setPosition(sf::Vector2f(windowWidth/2  - 16,
+                                             windowHeight/2 + 100));
         }
     }
 }
@@ -129,13 +129,13 @@ void In_Game::handleCollision()
 void In_Game::drawWorld(sf::RenderWindow & window)
 {
     // Grass background
-    background_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
+    backgroundSprite.setTextureRect(sf::IntRect(0, 0, 16, 16));
     
-    for(int columns{}; columns < window_height/32; columns++)
-        for(int rows{}; rows < window_width/32; rows++)
+    for(int columns{}; columns < windowHeight/32; columns++)
+        for(int rows{}; rows < windowWidth/32; rows++)
         {
-            background_sprite.setPosition(32*rows, 32*columns);
-            window.draw(background_sprite);
+            backgroundSprite.setPosition(32*rows, 32*columns);
+            window.draw(backgroundSprite);
         }
 
     for(auto && object : objects)
@@ -179,11 +179,11 @@ Game_State(game, player, ui)
     if(!other.loadFromFile(resourcePath() + "objects.png"))
         throw invalid_argument("World texture not loaded!");
     
-    background_sprite.setTexture(interior);
-    background_sprite.setScale(2.0, 2.0);
+    backgroundSprite.setTexture(interior);
+    backgroundSprite.setScale(2.0, 2.0);
     
-    player->setPosition(sf::Vector2f(window_width/2 - 16,
-                                     window_height/2 + 100));
+    player->setPosition(sf::Vector2f(windowWidth/2 - 16,
+                                     windowHeight/2 + 100));
     
     constructObjects();
 }
@@ -231,14 +231,14 @@ void In_House::handleCollision()
 void In_House::drawHouse(sf::RenderWindow & window)
 {
     // Floor
-    background_sprite.setTextureRect(sf::IntRect(0, 16, 16, 16));
+    backgroundSprite.setTextureRect(sf::IntRect(0, 16, 16, 16));
     
-    for(int columns{}; columns < window_height/32/3; columns++)
-        for(int rows{}; rows < window_width/32/3; rows++)
+    for(int columns{}; columns < windowHeight/32/3; columns++)
+        for(int rows{}; rows < windowWidth/32/3; rows++)
         {
-            background_sprite.setPosition(window_width/3  + 32*rows,
-                                          window_height/3 + 32*columns);
-            window.draw(background_sprite);
+            backgroundSprite.setPosition(windowWidth/3  + 32*rows,
+                                          windowHeight/3 + 32*columns);
+            window.draw(backgroundSprite);
         }
     
     for(auto && object : objects)
@@ -248,12 +248,12 @@ void In_House::drawHouse(sf::RenderWindow & window)
 void In_House::constructObjects()
 {
     // Entrance
-    objects.push_back(make_unique<Entrance>(sf::Vector2f(window_width/2 - 16,
-                                                         window_height/2 + 160)));
+    objects.push_back(make_unique<Entrance>(sf::Vector2f(windowWidth/2 - 16,
+                                                         windowHeight/2 + 160)));
     
     // Door Mat
-    objects.push_back(make_unique<Door_Mat>(sf::Vector2f(window_width/2 - 16,
-                                                         window_height/2 + 128)));
+    objects.push_back(make_unique<Door_Mat>(sf::Vector2f(windowWidth/2 - 16,
+                                                         windowHeight/2 + 128)));
 }
 
 /*___  _  _   _ ___ ___   __  __ ___ _  _ _   _
